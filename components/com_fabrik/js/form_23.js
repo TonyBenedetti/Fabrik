@@ -139,10 +139,10 @@ function calendar_type(from) {
 */
 
 
-function year_segment(from, tab) {
+function date_division(from, tab) {
 
    var table      = 'gn_event___';
-   var baseName   = table + tab + '_year_segment';
+   var baseName   = table + tab + '_date_division';
 
    var segments   = baseName;
    var choices    = baseName + '_choice';
@@ -161,7 +161,7 @@ function year_segment(from, tab) {
 
 function year_segment_choice(from, tab) {
    var table    = 'gn_event___';
-   var baseName = table + tab + '_year_segment';
+   var baseName = table + tab + '_date_division';
 
    var segments = baseName;
    var choices  = baseName + '_choice';
