@@ -42,7 +42,7 @@ class edtf
       $p    = ($y_c  == 'Uncertain')   ? $p . '~' : $p;
       $y    = ($p == '?~') ? '%' . $y : $p . $y;
 
-      $base = $t . $e . '_year_segment';
+      $base = $t . $e . '_division';
       $s    = sprintf("%02d", $data[$base . '_choice_raw']);
       $s_a  = $data[$base . '_accuracy'];
       $s_c  = $data[$base . '_confidence'];
@@ -50,7 +50,7 @@ class edtf
       $p    = ($s_c == 'Uncertain')   ? $p . '~' : $p;
       $s    = ($p == '?~') ? '%' . $s : $p . $s;
 
-      $base = $t . $e . '_day';
+      $base = $t . $e . '_subdivision';
       $d    = sprintf("%02d", $data[$base]);
       $d_a  = $data[$base . '_accuracy'];
       $d_c  = $data[$base . '_confidence'];
