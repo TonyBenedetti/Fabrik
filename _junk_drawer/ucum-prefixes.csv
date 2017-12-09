@@ -1,0 +1,25 @@
+name,printSymbol,value/sup,value/_value,value/__text,_Code,_CODE
+yotta,Y,24,1e24,1 × 10,Y,YA
+zetta,Z,21,1e21,1 × 10,Z,ZA
+exa,E,18,1e18,1 × 10,E,EX
+peta,P,15,1e15,1 × 10,P,PT
+tera,T,12,1e12,1 × 10,T,TR
+giga,G,9,1e9,1 × 10,G,GA
+mega,M,6,1e6,1 × 10,M,MA
+kilo,k,3,1e3,1 × 10,k,K
+hecto,h,2,1e2,1 × 10,h,H
+deka,da,1,1e1,1 × 10,da,DA
+deci,d,-1,1e-1,1 × 10,d,D
+centi,c,-2,1e-2,1 × 10,c,C
+milli,m,-3,1e-3,1 × 10,m,M
+micro,μ,-6,1e-6,1 × 10,u,U
+nano,n,-9,1e-9,1 × 10,n,N
+pico,p,-12,1e-12,1 × 10,p,P
+femto,f,-15,1e-15,1 × 10,f,F
+atto,a,-18,1e-18,1 × 10,a,A
+zepto,z,-21,1e-21,1 × 10,z,ZO
+yocto,y,-24,1e-24,1 × 10,y,YO
+kibi,Ki,,1024,1024,Ki,KIB
+mebi,Mi,,1048576,1048576,Mi,MIB
+gibi,Gi,,1073741824,1073741824,Gi,GIB
+tebi,Ti,,1099511627776,1099511627776,Ti,TIB
