@@ -60,6 +60,7 @@ function date_division(thisElement, tab) {
    var baseName   = table + tab + '_division';
 
    var divisions  = baseName;
+
    var choices    = baseName + '_choice';
    var accuracy   = baseName + '_accuracy';
    var confidence = baseName + '_confidence';
