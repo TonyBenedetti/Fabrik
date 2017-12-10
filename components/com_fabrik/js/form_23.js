@@ -1,12 +1,9 @@
-/**
- *
- *
- */
 function event_type(thisElement) {
-   var table = 'gn_event___';
-   var buttons = table + 'type';
+   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
+   var table   = 'gn_event___';
+   var choices = table + 'type';
 
-   var chosen = thisElement.form.elements.get(buttons).getValue();
+   var chosen = thisElement.form.elements.get(choices).getValue();
 
    var choice1 = 'Single Date';
    var choice2 = 'Start/End';
@@ -56,12 +53,9 @@ function event_type(thisElement) {
    }
 }
 
-/**
- *
- *
- */
-function date_division(thisElement, tab) {
 
+function date_division(thisElement, tab) {
+   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
    var table      = 'gn_event___';
    var baseName   = table + tab + '_division';
 
@@ -79,11 +73,9 @@ function date_division(thisElement, tab) {
    thisElement.form.elements.get(choices).setLabel(division);
 }
 
-/**
- *
- *
- */
+
 function date_division_choice(thisElement, tab) {
+   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
    var table     = 'gn_event___';
    var baseName  = table + tab + '_division';
 
