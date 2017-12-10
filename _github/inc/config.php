@@ -7,7 +7,7 @@ $config = array(
     'directory' => '/home/greeng42/gollynums.com',
 
     // Used for first clone
-    'url' => 'https://TonyBenedetti:6150Wilston@github.com/TonyBenedetti/fabrik.git',
+    'url' => 'https://TonyBenedetti:6150Wilston@github.com/TonyBenedetti/GollyNums.git',
 
     // Further options: 'log', 'date_format', 'branch', 'remote'
     'branch' => 'GN_deploy'

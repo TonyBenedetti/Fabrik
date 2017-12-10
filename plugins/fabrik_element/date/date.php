@@ -355,7 +355,8 @@ class PlgFabrik_ElementDate extends PlgFabrik_ElementList
 		$btnLayout  = FabrikHelperHTML::getLayout('fabrik-button');
 		$layoutData = (object) array(
 			'class' => 'timeButton',
-			'label' => FabrikHelperHTML::image($file, 'form', @$this->tmpl, $opts)
+			'label' => FabrikHelperHTML::image($file, 'form', @$this->tmpl, $opts),
+			'aria'	=> ' aria-label="' . FText::_('PLG_ELEMENT_DATE_ARIA_LABEL_TIME') . '"'
 		);
 
 		$str[] = $btnLayout->render($layoutData);
@@ -797,7 +798,8 @@ class PlgFabrik_ElementDate extends PlgFabrik_ElementList
 			$layoutData = (object) array(
 				'class' => 'calendarbutton',
 				'id'    => $id . '_cal_img',
-				'label' => $img
+				'label' => $img,
+				'aria'	=> ' aria-label="' . FText::_('PLG_ELEMENT_DATE_ARIA_LABEL_DATE') . '"'
 			);
 			$img        = $btnLayout->render($layoutData);
 			$html[]     = '<div class="input-append">';
@@ -2281,6 +2283,11 @@ class PlgFabrik_ElementDate extends PlgFabrik_ElementList
 	 */
 	public function onCopyRow($val)
 	{
+		if ($this->defaultOnCopy())
+		{
+			$val = $this->getFrontDefaultValue();
+		}
+
 		if (!FabrikWorker::isDate($val))
 		{
 			return $val;
@@ -2302,6 +2309,18 @@ class PlgFabrik_ElementDate extends PlgFabrik_ElementList
 		}
 
 		return $val;
+	}
+
+	/**
+	 * Called when save as copy form button clicked
+	 *
+	 * @param   mixed $val value to copy into new record
+	 *
+	 * @return  mixed  value to copy into new record
+	 */
+	public function onSaveAsCopy($val)
+	{
+		return $this->onCopyRow($val);
 	}
 
 	/**

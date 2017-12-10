@@ -402,6 +402,24 @@ define(['jquery', 'fab/element', 'fab/encoder', 'fab/fabrik', 'fab/autocomplete-
                         self.element.fireEvent('blur', new Event.Mock(self.element, 'blur'));
                     }
 
+                    if (self.options.showDesc)
+                    {
+                        var c = self.getContainer().getElement('.dbjoin-description');
+                        jQuery(c).empty();
+                        var descDiv = jQuery(Fabrik.jLayouts['fabrik-element-' + self.getPlugin() + '-form-description-div'])[0];
+                        var i = 0;
+                        json.each(function (o) {
+                            var $desc = jQuery(descDiv).clone();
+                            $desc.removeClass('description-0');
+                            $desc.addClass('description-' + i++);
+                            if (self.options.value === o.value) {
+                                $desc.css('display','');
+                            }
+                            $desc.html(o.description);
+                            jQuery(c).append($desc);
+                        });
+                    }
+
                     self.activePopUp = false;
                     Fabrik.fireEvent('fabrik.dbjoin.update', [self, json]);
                 }
@@ -956,7 +974,7 @@ define(['jquery', 'fab/element', 'fab/encoder', 'fab/fabrik', 'fab/autocomplete-
                         // rob previously we we doing appendInfo() but that didnt get the concat
                         // labels for the database join
                         if (this.options.displayType === 'auto-complete') {
-                            if (this.activePopup) {
+                            if (this.activePopUp) {
                                 // Need to get v if auto-complete and updating from posted popup form
                                 // as we only want to get ONE
                                 // option back inside update();

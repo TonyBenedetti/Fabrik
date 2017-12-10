@@ -15,6 +15,14 @@ class Info extends VcsAbstract {
             chdir($this->_directory);
 
             $this->exec_and_log(
+                'Git version:',
+                'git version');
+                
+            $this->exec_and_log(
+                'Git branch:',
+                'git branch');
+                
+            $this->exec_and_log(
                 'Git status:',
                 'git status');
 

@@ -1,63 +1,94 @@
 <?php
 class edtf
 {
-   function get_edtf($data, $table, $edtf_type)
+   function get_edtf($data, $table, $type)
    {
-      $t = 'gn_' . $table . '___';
+      $tableName = 'gn_' . $table . '___';
 
-      $base = $t . 'type';
-      $e = ($data[$base] == 'Single Date') ? 'start' : $edtf_type;
+      $typeName = $tableName . 'type';
+      $e = ($data[$typeName] == 'Single Date') ? 'start' : $type;
+      
+      $ss = $data[$tableName . 'start_status'];
+      $ss = ($ss == 'unknown') ? ''   : $ss;
+      $ss = ($ss == 'open'   ) ? '..' : $ss;
+
+      $se = $data[$tableName . 'end_status'];
+      $se = ($se == 'unknown') ? '??' : $se;
+      $se = ($se == 'open'   ) ? '..' : $se;
     
       switch ($e)
       {
          case 'both':
-            $start = self::build_edtf($data, $t, 'start');
-            $end   = self::build_edtf($data, $t, 'end');
-            $edtf  = $start . '/' . $end;
+            $edtf_start = ($ss != 'known') ? $ss : self::build_edtf($data, $tableName, 'start');
+            $edtf_end   = ($se != 'known') ? $se : self::build_edtf($data, $tableName, 'end');
+            $edtf       = $edtf_start . '/' . $edtf_end;
             break;
+
          case 'start':
-            $edtf  = self::build_edtf($data, $t, 'start');
+            $edtf   = ($ss != 'known') ? $ss : self::build_edtf($data, $t, 'start');
             break;
+
          case 'end':
-            $edtf  = self::build_edtf($data, $t, 'end');
+            $edtf   = ($se != 'known') ? $se : self::build_edtf($data, $t, 'end');
             break;
       }
       return $edtf;
    }
 
+
    function build_edtf($data, $t, $e)
    {
-   /* TODO - add notion of "unknown" or "open" date */
-      $base = $t . $e . '_year';
-      $y    = $data[$base];
-      $y_ex = $data[$base . '_exponent'];
-      $y_sd = $data[$base . '_significant_digits'];
-      $y_a  = $data[$base . '_accuracy'];
-      $y_c  = $data[$base . '_confidence'];
+      $root = $t . $e;
+
+      /* Year =================================== */
+      $b       = $root . '_year';
+      $year    = $data[$b];
+      $year_a  = $data[$b . '_accuracy'];
+      $year_c  = $data[$b . '_confidence'];
+      $year_ex = $data[$b . '_exponent'];
+      $year_sd = $data[$b . '_significant_digits'];
+
+      $p    = ($year_a  == 'approximate') ?      '?'    : '';
+      $p    = ($year_c  == 'uncertain')   ? $p . '~'    : $p;
+      $year = ($p == '?~')             ? '%' . $year    : $p . $year;  
+      $p    = ($year_ex == 0)             ? ''          :      'E' . $year_ex;
+      $p    = ($year_sd == 0)             ? $p          : $p . 'S' . $year_sd;
+      $year = $year . $p;
+
+      /* Division =============================== */
+      $b     = $root . '_division';
+      $div   = $data[$b . '_choice_raw'];
+      $div_a = $data[$b . '_accuracy'];
+      $div_c = $data[$b . '_confidence'];
       
-      $p    = ($y_ex == 0) ? ''       :      'E' . $y_ex;
-      $p    = ($y_sd == 0) ? $p       : $p . 'S' . $y_sd;
-      $y    = $y . $p;
-      $p    = ($y_a  == 'Approximate') ?      '?' : '';
-      $p    = ($y_c  == 'Uncertain')   ? $p . '~' : $p;
-      $y    = ($p == '?~') ? '%' . $y : $p . $y;
+      $p   = ($div_a == 'approximate') ?      '?' : '';
+      $p   = ($div_c == 'uncertain')   ? $p . '~' : $p;
+      $div = sprintf("%02d", $div);
+      $div = ($p == '?~') ? '%' . $div : $p . $div;
+      
+      /* Week =================================== */
+      $b      = $root . '_week';
+      $week   = $data[$b];
+      $week_a = $data[$b . '_accuracy'];
+      $week_c = $data[$b . '_confidence'];
 
-      $base = $t . $e . '_division';
-      $s    = sprintf("%02d", $data[$base . '_choice_raw']);
-      $s_a  = $data[$base . '_accuracy'];
-      $s_c  = $data[$base . '_confidence'];
-      $p    = ($s_a == 'Approximate') ?      '?' : '';
-      $p    = ($s_c == 'Uncertain')   ? $p . '~' : $p;
-      $s    = ($p == '?~') ? '%' . $s : $p . $s;
+      $p    = ($week_a == 'approximate') ?      '?' : '';
+      $p    = ($week_c == 'uncertain')   ? $p . '~' : $p;
+      $week = sprintf("%02d", $week);
+      $week = ($p == '?~') ? '%' . $week : $p . $week;
 
-      $base = $t . $e . '_subdivision';
-      $d    = sprintf("%02d", $data[$base]);
-      $d_a  = $data[$base . '_accuracy'];
-      $d_c  = $data[$base . '_confidence'];
-      $p    = ($d_a == 'Approximate') ?      '?' : '';
-      $p    = ($d_c == 'Uncertain')   ? $p . '~' : $p;
-      $d    = ($p == '?~') ? '%' . $d : $p . $d;
 
-      return $y . '-' . $s . '-' . $d;
+      /* Day ==================================== */
+      $b     = $root . '_day';
+      $day   = $data[$b];
+      $day_a = $data[$b . '_accuracy'];
+      $day_c = $data[$b . '_confidence'];
+
+      $p     = ($day_a == 'approximate') ?      '?' : '';
+      $p     = ($day_c == 'uncertain')   ? $p . '~' : $p;
+      $day   = sprintf("%02d", $day);
+      $day    = ($p == '?~') ? '%' . $day : $p . $day;
+
+      return $y . '-' . $d . '-' . $day;
    }
 }

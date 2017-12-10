@@ -1347,6 +1347,17 @@ class PlgFabrik_Element extends FabrikPlugin
 	}
 
 	/**
+	 * Should the element ignore a form or list row copy, and use the default regardless
+	 *
+	 * @return bool
+	 */
+	public function defaultOnCopy()
+	{
+		$params = $this->getParams();
+		return $params->get('default_on_copy', '0') === '1';
+	}
+
+	/**
 	 * This really does get just the default value (as defined in the element's settings)
 	 *
 	 * @param   array $data Form data
@@ -1842,7 +1853,8 @@ class PlgFabrik_Element extends FabrikPlugin
 		}
 		else
 		{
-			$rollOver = (string)$txt;
+			// defensive coding for corner case of calcs with JSON data
+			$rollOver = is_scalar($txt) ? (string)$txt : '';
 		}
 
 		return $rollOver;
@@ -3883,7 +3895,7 @@ class PlgFabrik_Element extends FabrikPlugin
 		{
 			$w    = new FabrikWorker;
 			$data = empty($data) ? $this->getFormModel()->getData() : $data;
-			$pop  = $w->parseMessageForPlaceHolder($pop, $data);
+			$pop  = $w->parseMessageForPlaceHolder($pop, $data, false);
 
 			$key = md5($pop) . '-' . md5(serialize($data));
 
@@ -4685,7 +4697,15 @@ class PlgFabrik_Element extends FabrikPlugin
 		{
 			$db     = FabrikWorker::getDbo();
 			$secret = $this->config->get('secret');
-			$key    = 'AES_DECRYPT(' . $key . ', ' . $db->q($secret) . ')';
+			$matches = array();
+			if (preg_match('/LOWER\((.*)\)/', $key, $matches))
+			{
+				$key = 'LOWER(CONVERT(AES_DECRYPT(' . $matches[1] . ', ' . 	$db->q($secret) . ') USING utf8))';
+			}
+			else
+			{
+				$key = 'AES_DECRYPT(' . $key . ', ' . $db->q($secret) . ')';
+			}
 		}
 	}
 
@@ -6701,7 +6721,7 @@ class PlgFabrik_Element extends FabrikPlugin
 	 */
 	public function onCopyRow($val)
 	{
-		return $val;
+		return $this->defaultOnCopy() ? $this->default : $val;
 	}
 
 	/**
@@ -6713,7 +6733,7 @@ class PlgFabrik_Element extends FabrikPlugin
 	 */
 	public function onSaveAsCopy($val)
 	{
-		return $val;
+		return $this->defaultOnCopy() ? $this->default : $val;
 	}
 
 	/**
@@ -6958,6 +6978,15 @@ class PlgFabrik_Element extends FabrikPlugin
 		{
 			return $val;
 		}
+
+		// if we're copying a row, format won't be applied
+		$formModel = $this->getFormModel();
+
+		if (isset($formModel->formData) && array_key_exists('fabrik_copy_from_table', $formModel->formData))
+		{
+			return $val;
+		}
+
 		// Might think about rounding to decimal_length, but for now let MySQL do it
 		$decimalLength = (int) $params->get('decimal_length', 2);
 
@@ -7745,11 +7774,11 @@ class PlgFabrik_Element extends FabrikPlugin
 			foreach ($idsToKeep as $parentId => $ids)
 			{
 				$query->clear();
-				$query->delete($join->table_join)->where('parent_id = ' . $parentId);
+				$query->delete($join->table_join)->where($db->quoteName('parent_id') . ' = ' . $parentId);
 
 				if (!empty($ids))
 				{
-					$query->where('id NOT IN ( ' . implode($ids, ',') . ')');
+					$query->where($db->quoteName('id') . ' NOT IN ( ' . implode($ids, ',') . ')');
 				}
 
 				$db->setQuery($query);

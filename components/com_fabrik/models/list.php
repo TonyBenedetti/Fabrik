@@ -1645,10 +1645,12 @@ class FabrikFEModelList extends JModelForm
 					// which aren't in $faceted->linkedlist, so added this sanity check.
 					if (isset($faceted->linkedlist->$f))
 					{
+						$join->list_id = array_key_exists($join->listlabel, $aTableNames) ? $aTableNames[$join->listlabel]->id : '';
+						$facetTable = $this->facetedTable($join->list_id);
 						$linkedTable = $faceted->linkedlist->$f;
 						$popupLink = $faceted->linkedlist_linktype->$f;
 
-						if ($linkedTable != '0')
+						if ($linkedTable != '0' && $facetTable->canView())
 						{
 							$recordKey = $join->element_id . '___' . $linkedTable;
 							$key = $recordKey . "_list_heading";
@@ -3565,6 +3567,11 @@ class FabrikFEModelList extends JModelForm
 		$valueKeys = array_keys(FArrayHelper::getValue($filters, 'key', array()));
 		$nullElementConditions = array('IS NULL', 'IS NOT NULL');
 
+		// get the last key, so we can find out in the foreach if we're on the last key (for "grouped to previous")
+		end($valueKeys);
+		$lastVkey = key($valueKeys);
+		reset($valueKeys);
+
 		foreach ($valueKeys as $vkey => $i)
 		{
 			// $$$rob - prefilter with element that is not published so ignore
@@ -3585,13 +3592,8 @@ class FabrikFEModelList extends JModelForm
 				continue;
 			}
 
-			$n = current($valueKeys);
-
-			if ($n === false)
-			{
-				// End of array
-				$n = -1;
-			}
+			// get next key, or -1 if we're on the last key
+			$n = $vkey === $lastVkey ? -1 : $valueKeys[$vkey + 1];
 
 			$gStart = '';
 			$gEnd = '';
@@ -4158,29 +4160,28 @@ class FabrikFEModelList extends JModelForm
 		 */
 
 		/**
-		* Find out what any plugins have to say
-		*/
-
+		 * Allow the plugin to take precedence.  If no plugins, or all plugin(s) return null (or any
+		 * value other than true or false) then we drop through to normal useDo/ACL checks.  If any plugin returns
+		 * false, access is denied.  If no plugin returns false, and any return true, access is allowed.
+		 */
 		$pluginCanEdit = FabrikWorker::getPluginManager()->runPlugins('onCanEdit', $this, 'list', $row);
 
 		// At least one plugin run, so plugin results take precedence over anything else.
 		if (!empty($pluginCanEdit))
 		{
-			// If one plugin returns false then return false.
-			//return in_array(false, $pluginCanEdit) ? false : true;
-			// Testing "didn't express a preference" by allowing plugin to return null (well, neither true nor false
-			// in which case we'll drop through and let the normal ACL mechanisms have their say
-			if (in_array(true, $pluginCanEdit, true))
-			{
-				return true;
-			}
-
+			// test false first, so if any plugin returns false, access is denied
 			if (in_array(false, $pluginCanEdit, true))
 			{
 				return false;
 			}
+
+			if (in_array(true, $pluginCanEdit, true))
+			{
+				return true;
+			}
 		}
 
+		// plugins didn't express a preference, so check user next
 		$canUserDo = $this->canUserDo($row, 'allow_edit_details2');
 
 		if ($canUserDo !== -1)
@@ -4189,12 +4190,13 @@ class FabrikFEModelList extends JModelForm
 			return $canUserDo;
 		}
 
+		// no user preference, so use normal ACL
 		if (!array_key_exists('edit', $this->access))
 		{
 			$groups = $this->user->getAuthorisedViewLevels();
 			$this->access->edit = in_array($this->getParams()->get('allow_edit_details'), $groups);
 		}
-		// Plugins didn't override, canuserDo() didn't express a preference, so return standard ACL
+
 		return $this->access->edit;
 	}
 
@@ -4251,24 +4253,46 @@ class FabrikFEModelList extends JModelForm
 		 * Find out if any plugins deny delete.  We then allow a plugin to override with 'false' if
 		 * if useDo or group ACL allows edit.  But we don't allow plugin to allow, if userDo or group ACL
 		 * deny access.
+		 *
+		 * CHANGED on 12/1/2017, to allow the plugin to take precedence.  Only if plugin(s) return null (or any
+		 * valuse other than true or false) then we drop through to normal useDo/ACL checks.  If any plugin returns
+		 * false, access is denied.  If no plugin returns false, and any return true, access is allowed.
 		 */
 		$pluginCanDelete = FabrikWorker::getPluginManager()->runPlugins('onCanDelete', $this, 'list', $row);
-		$pluginCanDelete = !in_array(false, $pluginCanDelete);
+
+		// At least one plugin run, so plugin results take precedence over anything else.
+		if (!empty($pluginCanDelete))
+		{
+			// check 'false' first, so if any plugin denies, result is false
+			if (in_array(false, $pluginCanDelete, true))
+			{
+				return false;
+			}
+
+			if (in_array(true, $pluginCanDelete, true))
+			{
+				return true;
+			}
+
+		}
+
+		// No plugins returned true or false, so carry on to user check
 		$canUserDo = $this->canUserDo($row, 'allow_delete2');
 
 		if ($canUserDo !== -1)
 		{
-			// If userDo allows delete, let plugin override
-			return $canUserDo ? $pluginCanDelete : $canUserDo;
+			// $canUserDo expressed a boolean preference, so use that
+			return $canUserDo;
 		}
 
+		// no preference from user check, so use main ACL
 		if (!array_key_exists('delete', $this->access))
 		{
 			$groups = $this->user->getAuthorisedViewLevels();
 			$this->access->delete = in_array($this->getParams()->get('allow_delete'), $groups);
 		}
-		// If group access allows delete, then let plugin override
-		return $this->access->delete ? $pluginCanDelete : $this->access->delete;
+
+		return $this->access->delete;
 	}
 
 	/**
@@ -6359,7 +6383,7 @@ class FabrikFEModelList extends JModelForm
 	 *
 	 * @return  bool
 	 */
-	protected function gotOptionalFilters()
+	public function gotOptionalFilters()
 	{
 		$filters = $this->getFilterArray();
 		$types = FArrayHelper::getValue($filters, 'search_type', array());
@@ -6799,7 +6823,7 @@ class FabrikFEModelList extends JModelForm
 		{
 			if ($params->get('checkboxLocation', 'end') !== 'end')
 			{
-				$this->addCheckBox($aTableHeadings, $headingClass, $cellClass, $this->canSelectRows());
+				$this->addCheckBox($aTableHeadings, $headingClass, $cellClass, !$this->canSelectRows());
 			}
 
 			if ($params->get('checkboxLocation', 'end') !== 'end')
@@ -6965,10 +6989,11 @@ class FabrikFEModelList extends JModelForm
 
 				if (is_object($join) && isset($faceted->linkedlist->$key))
 				{
+					$facetTable = $this->facetedTable($join->list_id);
 					$linkedTable = $faceted->linkedlist->$key;
 					$heading = $faceted->linkedlistheader->$key;
 
-					if ($linkedTable != '0')
+					if ($linkedTable != '0' && $facetTable->canView())
 					{
 						$prefix = $join->element_id . '___' . $linkedTable . '_list_heading';
 						$aTableHeadings[$prefix] = empty($heading) ? $join->listlabel . ' ' . FText::_('COM_FABRIK_LIST') : FText::_($heading);
@@ -7572,12 +7597,12 @@ class FabrikFEModelList extends JModelForm
 								$val = $elementModel->storeDatabaseFormat($data[$postKey], $data);
 								$elementModel->updateRowId($rowId);
 
-								if (array_key_exists('fabrik_copy_from_table', $data))
+								if (array_key_exists('fabrik_copy_from_table', $formModel->formData))
 								{
 									$val = $elementModel->onCopyRow($val);
 								}
 
-								if (array_key_exists('Copy', $data))
+								if (array_key_exists('Copy', $formModel->formData))
 								{
 									$val = $elementModel->onSaveAsCopy($val);
 								}

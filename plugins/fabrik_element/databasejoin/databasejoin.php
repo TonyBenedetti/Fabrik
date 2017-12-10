@@ -1466,8 +1466,10 @@ class PlgFabrik_ElementDatabasejoin extends PlgFabrik_ElementList
 
 		if ($params->get('join_desc_column', '') !== '')
 		{
-			$layout                        = $this->getLayout('form-description');
 			$displayData                   = new stdClass;
+			$descDivLayout = 'fabrik-element-' . $this->getPluginName() . '-form-description-div';
+			FabrikHelperHTML::jLayoutJs($descDivLayout, $descDivLayout, $displayData, array($this->layoutBasePath()));
+			$layout                        = $this->getLayout('form-description');
 			$displayData->opts             = $options;
 			$displayData->default          = FArrayHelper::getValue($default, 0);
 			$displayData->editable         = $this->isEditable();
@@ -2743,7 +2745,7 @@ class PlgFabrik_ElementDatabasejoin extends PlgFabrik_ElementList
 			$tableAlias = $to;
 		}
 
-		$query->select($joinTable . '.parent_id, ' . $v . ' AS value, ' . $label . ' AS text')->from($joinTable)
+		$query->select($joinTable . '.parent_id, ' . $v . ' AS `value`, ' . $label . ' AS `text`')->from($joinTable)
 			->join('LEFT', $to . ' ON ' . $key . ' = ' . $joinTable . '.' . $shortName);
 
 		$this->buildQueryWhere(array(), true, $tableAlias, array('mode' => 'filter'), $query);
