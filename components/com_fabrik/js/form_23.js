@@ -1,9 +1,14 @@
-function event_type(thisElement) {
-   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
-   var table   = 'gn_event___';
-   var choices = table + 'type';
+function eventType(thisElement) {
+   var thisForm     = thisElement.form;
+   var regexKeyName = '/(\w+)___([a-zA-Z0-9])_(\w+/)';
+   var formKeyName  = thisForm.options.primaryKey.match(regexKeyName);
+   var tableName    = formKeyName[1];
+   var tabName      = formKeyName[2];
+   var elementName  = formKeyName[3];
+alert(elementName);
 
-   var chosen = thisElement.form.elements.get(choices).getValue();
+/*
+   var chosen = thisForm.elements.get(elementName).getValue();
 
    var choice1 = 'Single Date';
    var choice2 = 'Start/End';
@@ -11,72 +16,83 @@ function event_type(thisElement) {
    var choice4 = 'Duration/End';
    var choice5 = 'Duration';
 
-   var group_a = '#group118_tab';
-   var group_b = '#group122_tab';
-   var group_c = '#group121_tab';
+   var tabGroupA = '#group118_tab';
+   var tabGroupB = '#group122_tab';
+   var tabGroupC = '#group121_tab';
 
    switch(chosen) {
       case choice1 :
-         jQuery(group_a).show();
-         jQuery(group_b).hide();
-         jQuery(group_c).hide();
-         jQuery(group_a).trigger('click');
+         jQuery(tabGroupA).show();
+         jQuery(tabGroupB).hide();
+         jQuery(tabGroupC).hide();
+         jQuery(tabGroupA).trigger('click');
          break;
 
        case choice2 :
-         jQuery(group_a).show();
-         jQuery(group_b).hide();
-         jQuery(group_c).show();
-         jQuery(group_a).trigger('click');
+         jQuery(tabGroupA).show();
+         jQuery(tabGroupB).hide();
+         jQuery(tabGroupC).show();
+         jQuery(tabGroupA).trigger('click');
          break;
 
        case choice3 :
-         jQuery(group_a).show();
-         jQuery(group_b).show();
-         jQuery(group_c).hide();
-         jQuery(group_a).trigger('click');
+         jQuery(tabGroupA).show();
+         jQuery(tabGroupB).show();
+         jQuery(tabGroupC).hide();
+         jQuery(tabGroupA).trigger('click');
          break;
 
        case choice4 :
-         jQuery(group_a).hide();
-         jQuery(group_b).show();
-         jQuery(group_c).show();
-         jQuery(group_b).trigger('click');
+         jQuery(tabGroupA).hide();
+         jQuery(tabGroupB).show();
+         jQuery(tabGroupC).show();
+         jQuery(tabGroupB).trigger('click');
          break;
 
        case choice5 :
-         jQuery(group_a).hide();
-         jQuery(group_b).show();
-         jQuery(group_c).hide();
-         jQuery(group_b).trigger('click');
+         jQuery(tabGroupA).hide();
+         jQuery(tabGroupB).show();
+         jQuery(tabGroupC).hide();
+         jQuery(tabGroupB).trigger('click');
          break;
    }
+*/
 }
 
 
-function date_division(thisElement, tab) {
-   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
-   var table      = 'gn_event___';
-   var baseName   = table + tab + '_division';
+/**
+ *
+ *
+ */
+function dateDivision(thisElement, tab) {
+/*
+   var thisForm    = thisElement.form;
+   var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
+   /* TODO use regex to get tab name */
+   var elementName = tableName + '___' + tab + '_division';
 
-   var divisions  = baseName;
+   var divisionName = thisForm.elements.get(elementName).getValue();
+   var saverName    = tableName + '___' + tab + '_saver_' + divisionName;
+   var savedBefore  = thisForm.elements.get(saverName).getValue();
+   var choices      = elementName + '_choice';
 
-   var choices    = baseName + '_choice';
-   var accuracy   = baseName + '_accuracy';
-   var confidence = baseName + '_confidence';
-   var savers     = baseName + '_saver_';
-
-   var division   = thisElement.form.elements.get(divisions).getValue();
-
-   var saver      = (savers + division).toLowerCase();
-   var saved      = thisElement.form.elements.get(saver).getValue();
-   thisElement.form.elements.get(choices).update(saved);
-   thisElement.form.elements.get(choices).setLabel(division);
+   thisForm.elements.get(choices).update(savedBefore);
+   thisForm.elements.get(choices).setLabel(division);
+*/
 }
 
 
-function date_division_choice(thisElement, tab) {
-   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
+/**
+ *
+ *
+ */
+function dateDivisionChoice(thisElement, tab) {
+/*
+   var thisForm    = thisElement.form;
+   var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
+   /* TODO use regex to get tab name */
+   var elementName = tableName + '___' + tab + '_division';
+
    var table     = 'gn_event___';
    var baseName  = table + tab + '_division';
 
@@ -89,4 +105,5 @@ function date_division_choice(thisElement, tab) {
 
    var saver     = (savers + division).toLowerCase();
    thisElement.form.elements.get(saver).update(choice);
+*/
 }
