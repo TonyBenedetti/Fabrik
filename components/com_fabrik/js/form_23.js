@@ -1,12 +1,13 @@
 function eventType(thisElement) {
+alert(tableName + ' -- ' + tabName ' -- ' + elementName);
    var thisForm     = thisElement.form;
    var regexKeyName = '/(\w+)___([a-zA-Z0-9])_(\w+/)';
    var formKeyName  = thisForm.options.primaryKey.match(regexKeyName);
    var tableName    = formKeyName[1];
    var tabName      = formKeyName[2];
    var elementName  = formKeyName[3];
-alert(elementName);
-
+alert(tableName + ' -- ' + tabName ' -- ' + elementName);
+return;
 /*
    var chosen = thisForm.elements.get(elementName).getValue();
 
@@ -65,6 +66,7 @@ alert(elementName);
  *
  */
 function dateDivision(thisElement, tab) {
+return;
 /*
    var thisForm    = thisElement.form;
    var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
@@ -87,6 +89,7 @@ function dateDivision(thisElement, tab) {
  *
  */
 function dateDivisionChoice(thisElement, tab) {
+return;
 /*
    var thisForm    = thisElement.form;
    var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];

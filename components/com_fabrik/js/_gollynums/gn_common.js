@@ -1,45 +1,5 @@
-/*
-function doMyStuff(el) {
-   // PK is in el.form.options.primaryKey, so you can regex out the table name ...
-   var tableName = el.form.options.primaryKey.match(/(\w+)___\w+/)[1];
-}
-
-The form id is in el.form.id.
-*/
-/* ============================= */
-/*
-function hideShowElements(el) {
-    var form = el.form;
-    var show = el.get('value');
-    elems = jQuery("[id^=" + el.options.element + "_]");
-    // hide a number of elements
-    for (var i=0; i< elems.length; i++) {
-        if (show == true)
-            form.formElements.get(elems[i].id).show();
-        else
-            form.formElements.get(elems[i].id).hide();
-    }
-}
-*/
-/* =================================== */
-/*
-for ($year = date('Y'); $year > date('Y', strtotime('-10 years')); $year--)
-  $options[] = ($year == date('Y', strtotime ('-1 year')))
-        ? JHTML::_('select.option',$year,$year,'SELECTED')
-        : JHTML::_('select.option',$year,$year); 
-return $options;
-*/
-
-
 /**
- * describe the function.
- 
- * @param {type} name - description.
- */
- 
- 
-/**
- * Show/hide combinations of the Fabrik groups (and their tabs) used to delelop
+ * Show/hide combinations of the Fabrik groups (and their tabs) used to develop
  * a date or duration based on the chosen date type (single date, start/end, 
  * start/duration, duration/end, duration)
  *
@@ -47,6 +7,7 @@ return $options;
  * @param {string} tabName - "start", "duration", or "end"
  */
 function event_type(thisElement) {
+   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
    var thisForm = thisElement.form;
 
    var table = 'gn_event___';
@@ -109,6 +70,7 @@ function event_type(thisElement) {
  * @param {string} tabName - "start", "duration", or "end"
  */
 function date_division(thisElement, tabName) {
+   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
    var thisForm   = thisElement.form;
 
    var table      = 'gn_event___';
@@ -136,6 +98,7 @@ function date_division(thisElement, tabName) {
  * @param {string} tabName - "start", "duration", or "end"
  */
 function date_division_choice(thisElement, tabName) {
+   /* var tableName = thisElement.form.options.primaryKey.match(/(\w+)___\w+/)[1]; */
    var thisForm   = thisElement.form;
    
    var table     = 'gn_event___';
