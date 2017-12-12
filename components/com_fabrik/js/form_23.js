@@ -1,12 +1,14 @@
 function eventType(thisElement) {
-alert(tableName + ' -- ' + tabName ' -- ' + elementName);
+alert(tableName + ' -1- ' + tabName ' -1- ' + elementName);
+/*
    var thisForm     = thisElement.form;
    var regexKeyName = '/(\w+)___([a-zA-Z0-9])_(\w+/)';
    var formKeyName  = thisForm.options.primaryKey.match(regexKeyName);
    var tableName    = formKeyName[1];
    var tabName      = formKeyName[2];
    var elementName  = formKeyName[3];
-alert(tableName + ' -- ' + tabName ' -- ' + elementName);
+*/
+alert(tableName + ' -2- ' + tabName ' -2- ' + elementName);
 return;
 /*
    var chosen = thisForm.elements.get(elementName).getValue();
@@ -70,7 +72,6 @@ return;
 /*
    var thisForm    = thisElement.form;
    var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
-   /* TODO use regex to get tab name */
    var elementName = tableName + '___' + tab + '_division';
 
    var divisionName = thisForm.elements.get(elementName).getValue();
@@ -93,7 +94,6 @@ return;
 /*
    var thisForm    = thisElement.form;
    var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
-   /* TODO use regex to get tab name */
    var elementName = tableName + '___' + tab + '_division';
 
    var table     = 'gn_event___';
