@@ -1,17 +1,19 @@
+/**
+ * Show/hide combinations of the Fabrik groups (and their tabs) used to develop
+ * a date or duration based on the chosen date type (single date, start/end, 
+ * start/duration, duration/end, duration)
+ *
+ * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
+ */
 function eventType(thisElement) {
-alert(tableName + ' -1- ' + tabName ' -1- ' + elementName);
-/*
-   var thisForm     = thisElement.form;
-   var regexKeyName = '/(\w+)___([a-zA-Z0-9])_(\w+/)';
-   var formKeyName  = thisForm.options.primaryKey.match(regexKeyName);
-   var tableName    = formKeyName[1];
-   var tabName      = formKeyName[2];
-   var elementName  = formKeyName[3];
-*/
-alert(tableName + ' -2- ' + tabName ' -2- ' + elementName);
-return;
-/*
-   var chosen = thisForm.elements.get(elementName).getValue();
+   var thisForm        = thisElement.form;
+   var elementFullname = String(thisElement.options.fullName);
+alert(elementFullname);
+   var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
+   var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
+
+   var chosen = thisForm.elements.get(elementFullname).getValue();
 
    var choice1 = 'Single Date';
    var choice2 = 'Start/End';
@@ -59,54 +61,51 @@ return;
          jQuery(tabGroupB).trigger('click');
          break;
    }
-*/
 }
 
 
 /**
+ * describe the function.
  *
- *
+ * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
 function dateDivision(thisElement, tab) {
-return;
-/*
-   var thisForm    = thisElement.form;
-   var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
-   var elementName = tableName + '___' + tab + '_division';
+   var thisForm        = thisElement.form;
+   var elementFullname = thisElement.options.fullName;
+alert(elementFullname);
+   var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
+   var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
 
-   var divisionName = thisForm.elements.get(elementName).getValue();
-   var saverName    = tableName + '___' + tab + '_saver_' + divisionName;
-   var savedBefore  = thisForm.elements.get(saverName).getValue();
-   var choices      = elementName + '_choice';
+   var divisionName = String(thisForm.elements.get(elementFullname).getValue());
+   var saverName    = String(tableName + '___' + tabName + '_saver_' + divisionName).toLowerCase();
+   var savedBefore  = String(thisForm.elements.get(saverName).getValue());
+   var choiceName   = String(elementFullname + '_choice');
 
-   thisForm.elements.get(choices).update(savedBefore);
-   thisForm.elements.get(choices).setLabel(division);
-*/
+   thisForm.elements.get(choiceName).setLabel(divisionName);
+   thisForm.elements.get(choiceName).update(savedBefore);
 }
 
 
 /**
+ * describe the function.
  *
- *
+ * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function dateDivisionChoice(thisElement, tab) {
-return;
-/*
-   var thisForm    = thisElement.form;
-   var tableName   = thisForm.options.primaryKey.match(/(\w+)___\w+/)[1];
-   var elementName = tableName + '___' + tab + '_division';
+ function dateDivisionChoice(thisElement, tab) {
+   var thisForm        = thisElement.form;
+   var elementFullname = String(thisElement.options.fullName);
+   var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
+   var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
 
-   var table     = 'gn_event___';
-   var baseName  = table + tab + '_division';
+   var divisionName = tableName + '___' + tabName + '_division';
+   var division     = String(thisForm.elements.get(divisionName).getValue().toLowerCase());
+   
+   var choiceName   = divisionName + '_choice';
+   var choice       = String(thisForm.elements.get(choiceName).getValue());
 
-   var divisions = baseName;
-   var choices   = baseName + '_choice';
-   var savers    = baseName + '_saver_';
+   var saverName = String(divisionName + '_saver_' + division);
 
-   var division  = thisElement.form.elements.get(divisions).getValue();
-   var choice    = thisElement.form.elements.get(choices).getValue();
-
-   var saver     = (savers + division).toLowerCase();
-   thisElement.form.elements.get(saver).update(choice);
-*/
+   thisForm.elements.get(saverName).update(choice);
 }
