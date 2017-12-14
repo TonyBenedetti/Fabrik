@@ -5,10 +5,10 @@
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function eventType(thisElement) {
+function dateType(thisElement) {
    var thisForm        = thisElement.form;
    var elementFullname = String(thisElement.options.fullName);
-alert(elementFullname);
+alert('dateType elementFullname: ' + elementFullname);
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
    var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
@@ -72,7 +72,7 @@ alert(elementFullname);
 function dateDivision(thisElement, tab) {
    var thisForm        = thisElement.form;
    var elementFullname = thisElement.options.fullName;
-alert(elementFullname);
+alert('dateDivision elementFullname: ' + elementFullname);
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
    var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
@@ -95,6 +95,7 @@ alert(elementFullname);
  function dateDivisionChoice(thisElement, tab) {
    var thisForm        = thisElement.form;
    var elementFullname = String(thisElement.options.fullName);
+alert('dateDivisionChoice elementFullname: ' + elementFullname);
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
    var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
