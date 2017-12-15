@@ -61,11 +61,15 @@ alert('dateType elementFullname: ' + elementFullname);
          jQuery(tabGroupB).trigger('click');
          break;
    }
+   return;
 }
 
 
 /**
- * describe the function.
+ * The form has just been loaded or the user has just chosen a division of a year:
+ * -- division possibilities are: month, quarter, third, half & season
+ * -- change the label on the "_choice" element
+ * -- update "_choice" element with the value that may have been previously saved
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
@@ -84,11 +88,16 @@ alert('dateDivision elementFullname: ' + elementFullname);
 
    thisForm.elements.get(choiceName).setLabel(divisionName);
    thisForm.elements.get(choiceName).update(savedBefore);
+   
+   return;
 }
 
 
 /**
- * describe the function.
+ * The form has just been loaded or the user has just chosen 
+ * a value for this division of a year:
+ * -- division possibilities are: month, quarter, third, half & season
+ * -- stow away that value in the corresponding "_saver_" element
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
@@ -109,4 +118,6 @@ alert('dateDivisionChoice elementFullname: ' + elementFullname);
    var saverName = String(divisionName + '_saver_' + division);
 
    thisForm.elements.get(saverName).update(choice);
+   
+   return;
 }
