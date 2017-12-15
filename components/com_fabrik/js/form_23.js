@@ -1,9 +1,13 @@
 /**
- * Show/hide combinations of the Fabrik groups (and their tabs) used to develop
- * a date or duration based on the chosen date type (single date, start/end, 
- * start/duration, duration/end, duration)
+ * Show/hide combinations of the Fabrik groups
+ * (and their tabs) used to develop a date or
+ * duration based on the chosen date type
+ * (single date, start/end, start/duration,
+ * duration/end, duration)
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
+ *
+ * @TODO new function to loop array of 3 "hide/show"s for choice switch below
  */
 function dateType(thisElement) {
    var thisForm        = thisElement.form;
@@ -25,6 +29,7 @@ alert('dateType elementFullname: ' + elementFullname);
    var tabGroupB = '#group122_tab';
    var tabGroupC = '#group121_tab';
 
+/*
    switch(chosen) {
       case choice1 :
          jQuery(tabGroupA).show();
@@ -61,6 +66,7 @@ alert('dateType elementFullname: ' + elementFullname);
          jQuery(tabGroupB).trigger('click');
          break;
    }
+   */
    return;
 }
 
