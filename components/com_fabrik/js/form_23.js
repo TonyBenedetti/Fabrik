@@ -73,7 +73,7 @@ alert('dateType elementFullname: ' + elementFullname);
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function dateDivision(thisElement, tab) {
+function dateDivision(thisElement) {
    var thisForm        = thisElement.form;
    var elementFullname = thisElement.options.fullName;
 alert('dateDivision elementFullname: ' + elementFullname);
@@ -101,7 +101,7 @@ alert('dateDivision elementFullname: ' + elementFullname);
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
- function dateDivisionChoice(thisElement, tab) {
+ function dateDivisionChoice(thisElement) {
    var thisForm        = thisElement.form;
    var elementFullname = String(thisElement.options.fullName);
 alert('dateDivisionChoice elementFullname: ' + elementFullname);
