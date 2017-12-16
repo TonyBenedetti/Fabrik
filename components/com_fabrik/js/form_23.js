@@ -7,12 +7,13 @@
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  *
+ * @TODO get list of groups 
  * @TODO new function to loop array of 3 "hide/show"s for choice switch below
  */
 function dateType(thisElement)
 {
    var thisForm        = thisElement.form;
-alert('groups: |' + thisForm.groups + '|';
+alert('groups: |' + thisForm.groups + '|');
    var elementFullname = String(thisElement.options.fullName);
 alert('dateType elementFullname: ' + elementFullname);
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
