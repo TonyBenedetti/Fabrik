@@ -63,7 +63,7 @@ class EDTF
       $calType = $data[$tabName . '_calendar_type'];
       
       $year = self::buildSegment($data, $tabName, 'year');
-      $div  = self::buildSegment($data, $tabName, 'div');
+      $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
       $day  = self::buildSegment($data, $tabName, 'day');
       $edtf = $year . '-' . $div . '-' . $day;
       
@@ -118,7 +118,7 @@ class EDTF
       $segmentName = $tabName . '_' . $segName;
       $segment     = $data[$segmentName];
       $segment     = $segname == 'year' ? $segment : sprintf("%02d", $segment);
-self::alert('buildSegment: ' . '|' . $segname . '|' . $segmentName . '|' . $segment . '|');
+self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');
 
       /* Conditionally add flags for accuracy and/or confidence */
       $segmentAcc  = $data[$segmentName . '_accuracy'];
