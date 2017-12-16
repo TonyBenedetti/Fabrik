@@ -18,7 +18,7 @@ class EDTF
     *
     */
    function getEDTF($data, $table, $type) {
-      self::alert('getEDTF');
+      self::alert('getEDTF: ' . $type);
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -56,10 +56,10 @@ class EDTF
     *
     *
     */
-   function buildEDTF($data, $tableName, $eventType)
+   function buildEDTF($data, $tableName, $tabType)
    {
       self::alert('buildEDTF');
-      $tabName = $tableName . $eventType;
+      $tabName = $tableName . $tabType;
       $calType = $data[$tabName . '_calendar_type'];
       
       $year = self::buildSegment($data, $tabName, 'year');
@@ -114,15 +114,15 @@ class EDTF
     */
    function buildSegment($data, $tabName, $segName)
    {
-      self::alert('buildSegment');
+      
       $segmentName = $tabName . '_' . $segName;
-
       $segment     = $data[$segmentName];
-      $segment     = sprintf("%02d", $segment);
-      $segmentAcc  = $data[$segmentName . '_accuracy'];
-      $segmentConf = $data[$segmentName . '_confidence'];
+      $segment     = $segname == 'year' ? $segment : sprintf("%02d", $segment);
+self::alert('buildSegment: ' . '|' . $segname . '|' . $segmentName . '|' . $segment . '|');
 
       /* Conditionally add flags for accuracy and/or confidence */
+      $segmentAcc  = $data[$segmentName . '_accuracy'];
+      $segmentConf = $data[$segmentName . '_confidence'];
       $flag = ($segAcc == 'approximate') ?         '?' : '';
       $flag = ($segConf == 'uncertain' ) ? $flag . '~' : $flag;
       $seg  = ($flag == '?~') ? '%' . $seg : $flag . $seg;
