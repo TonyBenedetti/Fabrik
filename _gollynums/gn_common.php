@@ -86,8 +86,6 @@ class EDTF
             $day  = self::buildSegment($data, $tabName, 'day');
             $edtf = $year . '-' . $week . '-' . $day;
             break;
-         */
-         /*
          case 'julian':
             $year = self::buildSegment($data, $tabName, 'year');
             $div  = self::buildSegment($data, $tabName, 'div');
@@ -95,8 +93,8 @@ class EDTF
             $day  = self::buildSegment($data, $tabName, 'day');
             $edtf = 'julian date';
             break;
-         */
       }
+*/
       return $edtf;
    }
 
