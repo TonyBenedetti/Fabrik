@@ -1,9 +1,5 @@
 <?php
 
-public function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
-}
-
 
 
 /**
@@ -12,12 +8,17 @@ public function alert($msg) {
  */
 class EDTF
 {
+   function alert($msg) {
+      echo "<script type='text/javascript'>alert('$msg');</script>";
+   }
+
+
    /**
     *
     *
     */
    function getEDTF($data, $table, $type) {
-      alert('getEDTF');
+      self::alert('getEDTF');
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -57,7 +58,7 @@ class EDTF
     */
    function buildEDTF($data, $tableName, $eventType)
    {
-      alert('buildEDTF');
+      self::alert('buildEDTF');
       $tabName = $tableName . $eventType;
       $calType = $data[$tabName . '_calendar_type'];
       
@@ -113,7 +114,7 @@ class EDTF
     */
    function buildSegment($data, $tabName, $segName)
    {
-      alert('buildSegment');
+      self::alert('buildSegment');
       $segmentName = $tabName . '_' . $segName;
 
       $segment     = $data[$segmentName];
