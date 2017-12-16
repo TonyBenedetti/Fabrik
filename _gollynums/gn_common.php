@@ -18,7 +18,7 @@ class EDTF
     * @todo day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
     */
    function getEDTF($data, $table, $type) {
-      self::alert('getEDTF: |' . $type . '|');
+self::alert('getEDTF: |' . $type . '|');
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -61,7 +61,7 @@ class EDTF
       $tabName = $tableName . $tabType;
       $calType = $data[$tabName . '_calendar_type'];
       
-      self::alert('buildEDTF: |' . $tabType . '| |' . $tabName . '|' .);
+      self::alert('buildEDTF: |' . $tabType . '| |' . $tabName . '|');
       
       $year = self::buildSegment($data, $tabName, 'year');
       $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
