@@ -15,10 +15,10 @@ class EDTF
 
    /**
     *
-    *
+    * @todo day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
     */
    function getEDTF($data, $table, $type) {
-      self::alert('getEDTF: ' . $type);
+      self::alert('getEDTF: |' . $type . '|');
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -58,9 +58,10 @@ class EDTF
     */
    function buildEDTF($data, $tableName, $tabType)
    {
-      self::alert('buildEDTF');
       $tabName = $tableName . $tabType;
       $calType = $data[$tabName . '_calendar_type'];
+      
+      self::alert('buildEDTF: |' . $tabType . '| |' . $tabName . '|' .);
       
       $year = self::buildSegment($data, $tabName, 'year');
       $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
@@ -72,7 +73,7 @@ class EDTF
       {
          case 'iso-edtf':
             $year = self::buildSegment($data, $tabName, 'year');
-            $div  = self::buildSegment($data, $tabName, 'div');
+            $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
             $day  = self::buildSegment($data, $tabName, 'day');
             $edtf = $year . '-' . $div . '-' . $day;
             break;
@@ -97,7 +98,7 @@ class EDTF
             break;
          case 'julian':
             $year = self::buildSegment($data, $tabName, 'year');
-            $div  = self::buildSegment($data, $tabName, 'div');
+            $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
             $week = self::buildSegment($data, $tabName, 'week');
             $day  = self::buildSegment($data, $tabName, 'day');
             $edtf = 'julian date';
@@ -136,6 +137,7 @@ self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segm
          $suffix = ($segSigD == 0) ? $suffix : $suffix . 'S' . $segSigD;
          $seg = $seg . $suffix;
       }
+      return $edtf;
    }
 }
 ?>
