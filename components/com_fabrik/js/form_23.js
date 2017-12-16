@@ -9,8 +9,10 @@
  *
  * @TODO new function to loop array of 3 "hide/show"s for choice switch below
  */
-function dateType(thisElement) {
+function dateType(thisElement)
+{
    var thisForm        = thisElement.form;
+alert('groups: |' + thisForm.groups + '|';
    var elementFullname = String(thisElement.options.fullName);
 alert('dateType elementFullname: ' + elementFullname);
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
@@ -29,7 +31,6 @@ alert('dateType elementFullname: ' + elementFullname);
    var tabGroupB = '#group122_tab';
    var tabGroupC = '#group121_tab';
 
-/*
    switch(chosen) {
       case choice1 :
          jQuery(tabGroupA).show();
@@ -66,9 +67,35 @@ alert('dateType elementFullname: ' + elementFullname);
          jQuery(tabGroupB).trigger('click');
          break;
    }
+   
+   
+   /*
+   // learn group numbers and give them names
+   // including click/default
+   groups = [118, 122, 121];
+
+   switch(chosen) {
+      case choice6 :
+         actions = ['hide', 'show', 'hide'];
+         self::tabShowHide(actions, groups[2]);
+         break;
+   }
    */
    return;
 }
+
+
+/*
+function tabShowHide(actions, groups, clickGroup)
+{
+   for (i = 0; i < 3; i++) {
+      tab = '#group' + groups[i] + '_tab';
+      jQuery(tab).hide();
+   }
+   jQuery(clickGroup).trigger('click');
+   return;
+}
+*/
 
 
 /**
