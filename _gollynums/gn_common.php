@@ -55,7 +55,7 @@ class EDTF
    function buildEDTF($data, $tableName, $tabType)
    {
       $tabName = $tableName . $tabType;
-      $calType = $data[$tabName . '_calendar_type'];
+      $calType = $data[$tabName . '_calendar_type_raw'];
 /*
       $year = self::buildSegment($data, $tabName, 'year',     0);
       $div  = self::buildSegment($data, $tabName, 'division', 2);
@@ -104,9 +104,10 @@ class EDTF
 
 
    /**
+    * Prepare a segment of a date
+    * -- year, division, week, day
+    * -- "divisions" are: month, quarter, third, half, season
     *
-    *
-    * @TODO get rid of leading zeros -- segExp & segSigD
     */
    function buildSegment($data, $tabName, $segType, $pad)
    {
