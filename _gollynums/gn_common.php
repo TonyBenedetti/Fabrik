@@ -118,21 +118,29 @@ class EDTF
       $segment     = $segname == 'year' ? $segment : sprintf("%02d", $segment);
 /*self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');*/
 
-      /* Conditionally add flags for accuracy and/or confidence */
-      $segmentAcc  = $data[$segmentName . '_accuracy'];
-      $segmentConf = $data[$segmentName . '_confidence'];
-      $segFlag = ($segAcc == 'approximate') ?         '?' : '';
-      $segFlag = ($segConf == 'uncertain' ) ? $segFlag . '~' : $segFlag;
-      $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
-
+      /**
+       * Conditionally adjust the year segment:
+       * -- prefix year with minus sign if Era is BC (BCE)
+       * -- suffix year with optional exponent (Ennn) and significant digits (Snnn)
+       */
       if ($segName == 'year') {
-         /* Conditionally add exponent (Ennn) and significant digits (Snnn) */
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
-         $suffix = ($segExp  == 0) ? ''      :           'E' . $segExp;
-         $suffix = ($segSigD == 0) ? $suffix : $suffix . 'S' . $segSigD;
+         $segEra  = $data[$segmentName . '_era'];
+         $suffix = ($segExp  == 0)     ? ''      :           'E' . $segExp;
+         $suffix = ($segSigD == 0)     ? $suffix : $suffix . 'S' . $segSigD;
          $segment = $segment . $suffix;
+         $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
       }
+      /** 
+       * Conditionally add flags for accuracy and/or confidence
+       */
+      $segmentAcc  = $data[$segmentName . '_accuracy'];
+      $segmentConf = $data[$segmentName . '_confidence'];
+      $segFlag = ($segAcc  == 'approximate') ?            '?' : '';
+      $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '~' : $segFlag;
+      $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
+
       return $segment;
    }
 }
