@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  *
  *
@@ -18,7 +15,7 @@ class EDTF
     * @todo day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
     */
    function getEDTF($data, $table, $type) {
-self::alert('getEDTF: |' . $type . '|');
+/*self::alert('getEDTF: |' . $type . '|');*/
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -61,7 +58,7 @@ self::alert('getEDTF: |' . $type . '|');
       $tabName = $tableName . $tabType;
       $calType = $data[$tabName . '_calendar_type'];
       
-      self::alert('buildEDTF: |' . $tabType . '| |' . $tabName . '|');
+/*self::alert('buildEDTF: |' . $tabType . '| |' . $tabName . '|');*/
       
       $year = self::buildSegment($data, $tabName, 'year');
       $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
@@ -119,25 +116,24 @@ self::alert('getEDTF: |' . $type . '|');
       $segmentName = $tabName . '_' . $segName;
       $segment     = $data[$segmentName];
       $segment     = $segname == 'year' ? $segment : sprintf("%02d", $segment);
-self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');
+/*self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');*/
 
       /* Conditionally add flags for accuracy and/or confidence */
       $segmentAcc  = $data[$segmentName . '_accuracy'];
       $segmentConf = $data[$segmentName . '_confidence'];
-      $flag = ($segAcc == 'approximate') ?         '?' : '';
-      $flag = ($segConf == 'uncertain' ) ? $flag . '~' : $flag;
-      $seg  = ($flag == '?~') ? '%' . $seg : $flag . $seg;
+      $segFlag = ($segAcc == 'approximate') ?         '?' : '';
+      $segFlag = ($segConf == 'uncertain' ) ? $segFlag . '~' : $segFlag;
+      $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
 
       if ($segName == 'year') {
          /* Conditionally add exponent (Ennn) and significant digits (Snnn) */
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
-
          $suffix = ($segExp  == 0) ? ''      :           'E' . $segExp;
          $suffix = ($segSigD == 0) ? $suffix : $suffix . 'S' . $segSigD;
-         $seg = $seg . $suffix;
+         $segment = $segment . $suffix;
       }
-      return $edtf;
+      return $segment;
    }
 }
 ?>
