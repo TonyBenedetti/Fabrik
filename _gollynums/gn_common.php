@@ -115,7 +115,7 @@ class EDTF
       
       $segmentName = $tabName . '_' . $segName;
       $segment     = $data[$segmentName];
-      $segment     = $segName == 'year' ? $segment : sprintf("%02d", $segment);
+      $segment     = ($segName == 'year') ? $segment : sprintf("%02d", $segment);
 /*self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');*/
 
       /**
