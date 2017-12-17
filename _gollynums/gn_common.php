@@ -106,7 +106,7 @@ class EDTF
     *
     * @TODO get rid of leading zeros -- segExp & segSigD
     */
-   function buildSegment($data, $tabName, $segName, $pad)
+   function buildSegment($data, $tabName, $segType, $pad)
    {
       $segName = $tabName . '_' . $segType;
       $segName = ($segType == 'division') ? $segName . '_choice_raw' : $segName;
