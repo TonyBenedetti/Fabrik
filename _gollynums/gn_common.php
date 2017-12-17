@@ -139,9 +139,9 @@ class EDTF
        */
       $segmentAcc  = $data[$segmentName . '_accuracy_raw'];
       $segmentConf = $data[$segmentName . '_confidence_raw'];
-      $segFlag = ($segAcc  == 'approximate') ?            '?' : '';
-      $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '~' : $segFlag;
-      $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
+      $segmentFlag = ($segmentAcc  == 'approximate') ?                '?' : '';
+      $segmentFlag = ($segmentConf == 'uncertain'  ) ? $segmentFlag . '~' : $segmentFlag;
+      $segment = ($segmentFlag == '?~') ? '%' . $segment : $segmentFlag . $segment;
 /*self::alert('3 ' . $segment);*/
       return $segment;
    }
