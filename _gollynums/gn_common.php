@@ -15,7 +15,7 @@ class EDTF
     * @todo day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
     */
    function getEDTF($data, $table, $type) {
-/*self::alert('getEDTF: |' . $type . '|');*/
+self::alert('getEDTF: |' . $type . '|');
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -115,7 +115,7 @@ class EDTF
       
       $segmentName = $tabName . '_' . $segName;
       $segment     = $data[$segmentName];
-      $segment     = $segname == 'year' ? $segment : sprintf("%02d", $segment);
+      $segment     = $segName == 'year' ? $segment : sprintf("%02d", $segment);
 /*self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');*/
 
       /**
@@ -126,13 +126,13 @@ class EDTF
       if ($segName == 'year') {
          $segEra  = $data[$segmentName . '_era'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
-self::alert('1 ' .$segment);
+self::alert('1 ' .$segment . '|' . $segEra);
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
          $suffix = ($segExp  == 0)     ? ''      :           'E' . $segExp;
          $suffix = ($segSigD == 0)     ? $suffix : $suffix . 'S' . $segSigD;
          $segment = $segment . $suffix;
-self::alert('2 ' . $segment);
+/*self::alert('2 ' . $segment);*/
       }
       /** 
        * Conditionally add flags for accuracy and/or confidence
@@ -142,7 +142,7 @@ self::alert('2 ' . $segment);
       $segFlag = ($segAcc  == 'approximate') ?            '?' : '';
       $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '~' : $segFlag;
       $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
-self::alert('3 ' . $segment);
+/*self::alert('3 ' . $segment);*/
       return $segment;
    }
 }
