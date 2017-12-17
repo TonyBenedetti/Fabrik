@@ -116,8 +116,8 @@ class EDTF
        * -- year - strip leading zeros from year
        * -- everything else - add leading zeros according to $pad param
        */
-      $segment = String($data[$segName]);
-      $pattern = '%0' . String($pad) . 'd';
+      $segment = (string)$data[$segName]);
+      $pattern = '%0' . (string)$pad . 'd';
       $segment = sprintf($pattern, ltrim($segment, '0'));
       /*
       if ($segType == 'year') {
