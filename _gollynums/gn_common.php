@@ -126,12 +126,13 @@ class EDTF
       if ($segmentName == 'year') {
          $segEra  = $data[$segmentName . '_era'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
-         
+self::alert('1 ' .$segment);
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
          $suffix = ($segExp  == 0)     ? ''      :           'E' . $segExp;
          $suffix = ($segSigD == 0)     ? $suffix : $suffix . 'S' . $segSigD;
          $segment = $segment . $suffix;
+self::alert('2 ' . $segment);
       }
       /** 
        * Conditionally add flags for accuracy and/or confidence
@@ -141,7 +142,7 @@ class EDTF
       $segFlag = ($segAcc  == 'approximate') ?            '?' : '';
       $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '~' : $segFlag;
       $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
-
+self::alert('3 ' . $segment);
       return $segment;
    }
 }
