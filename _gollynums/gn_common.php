@@ -56,14 +56,14 @@ class EDTF
    {
       $tabName = $tableName . $tabType;
       $calType = $data[$tabName . '_calendar_type'];
-      
+/*
       $year = self::buildSegment($data, $tabName, 'year',     0);
       $div  = self::buildSegment($data, $tabName, 'division', 2);
       $day  = self::buildSegment($data, $tabName, 'day',      2);
       
       $edtf = $year . '-' . $div . '-' . $day;
-      
-/*
+*/
+
       switch ($calType)
       {
          case 'iso-edtf':
@@ -88,6 +88,7 @@ class EDTF
             $day  =       self::buildSegment($data, $tabName, 'day',  1);
             $edtf = $year . '-' . $week . '-' . $day;
             break;
+         /*
          case 'julian':
             $year = self::buildSegment($data, $tabName, 'year', 0);
             $div  = self::buildSegment($data, $tabName, 'division');
@@ -95,8 +96,9 @@ class EDTF
             $day  = self::buildSegment($data, $tabName, 'day');
             $edtf = 'julian date';
             break;
+         */
       }
-*/
+
       return $edtf;
    }
 
