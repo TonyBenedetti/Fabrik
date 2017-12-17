@@ -119,14 +119,6 @@ class EDTF
       $segment = (string)$data[$segName];
       $pattern = '%0' . (string)$pad . 'd';
       $segment = sprintf($pattern, ltrim($segment, '0'));
-      /*
-      if ($segType == 'year') {
-         $segment = $segment.replace(/\b0+/g, '');
-      } else {
-         $pattern = '%0' . String($pad) . 'd';
-         $segment = sprintf($pattern, ltrim($segment, '0'));
-      }
-      */
 
       /**
        * Conditionally adjust the year segment:
@@ -134,14 +126,14 @@ class EDTF
        * -- suffix with optional exponent (Ennn) and significant digits (Snnn)
        */
       if ($segType == 'year') {
-         $segEra  = $data[$segName . '_era_raw'];
+         $segEra  = $data[$tabName . '_era_raw'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
-self::alert('buildSegment: ' . '|' . $segType . '| |' . $segName . '| |' . $segment . '| |' . $segEra . '|');
+/*self::alert('|' . $segType . '| |' . $segName . '| |' . $segment . '| |' . $segEra . '|');*/
 
          $segExp  = $data[$segName . '_exponent'];
          $segSigD = $data[$segName . '_significant_digits'];
-         $segSuff = ($segExp  == 0) ? ''       :            'E' . $segExp;
-         $segSuff = ($segSigD == 0) ? $segSuff : $segSuff . 'S' . $segSigD;
+         $segSuff = ($segExp  == 0) ? ''       :            'E' . ltrim((string)$segExp,  '0');
+         $segSuff = ($segSigD == 0) ? $segSuff : $segSuff . 'S' . ltrim((string)$segSigD, '0');
          $segment = $segment . $segSuff;
       }
 
