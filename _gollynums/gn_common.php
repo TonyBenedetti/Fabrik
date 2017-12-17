@@ -123,14 +123,15 @@ class EDTF
        * -- prefix year with minus sign if Era is BC (BCE)
        * -- suffix year with optional exponent (Ennn) and significant digits (Snnn)
        */
-      if ($segName == 'year') {
+      if ($segmentName == 'year') {
+         $segEra  = $data[$segmentName . '_era'];
+         $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
+         
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
-         $segEra  = $data[$segmentName . '_era'];
          $suffix = ($segExp  == 0)     ? ''      :           'E' . $segExp;
          $suffix = ($segSigD == 0)     ? $suffix : $suffix . 'S' . $segSigD;
          $segment = $segment . $suffix;
-         $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
       }
       /** 
        * Conditionally add flags for accuracy and/or confidence
