@@ -124,15 +124,15 @@ class EDTF
        * -- suffix year with optional exponent (Ennn) and significant digits (Snnn)
        */
       if ($segName == 'year') {
-         $segEra  = $data[$segmentName . '_era_raw'];
+         $segEra  = $data[$segmentName . '_era'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
 self::alert('1 ' . $segment . ' | ' . $segEra);
 /* !!! sprintf segExp & segSigD !!! */
 /* era still not working */
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
-         $suffix = ($segExp  == 0)     ? ''      :           'E' . $segExp;
-         $suffix = ($segSigD == 0)     ? $suffix : $suffix . 'S' . $segSigD;
+         $suffix = ($segExp  == 0) ? ''      :           'E' . $segExp;
+         $suffix = ($segSigD == 0) ? $suffix : $suffix . 'S' . $segSigD;
          $segment = $segment . $suffix;
 /*self::alert('2 ' . $segment); */
       }
