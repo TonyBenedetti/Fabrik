@@ -123,7 +123,7 @@ class EDTF
        * -- prefix year with minus sign if Era is BC (BCE)
        * -- suffix year with optional exponent (Ennn) and significant digits (Snnn)
        */
-      if ($segmentName == 'year') {
+      if ($segName == 'year') {
          $segEra  = $data[$segmentName . '_era'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
 self::alert('1 ' .$segment);
