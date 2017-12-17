@@ -12,10 +12,9 @@ class EDTF
 
    /**
     *
-    * @todo day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
+    * @TODO day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
     */
    function getEDTF($data, $table, $type) {
-/*self::alert('getEDTF: |' . $type . '|');*/
       $tableName = 'gn_' . $table . '___';
 
       $typeName = $tableName . 'type';
@@ -58,44 +57,40 @@ class EDTF
       $tabName = $tableName . $tabType;
       $calType = $data[$tabName . '_calendar_type'];
       
-/*self::alert('buildEDTF: |' . $tabType . '| |' . $tabName . '|');*/
+      $year = self::buildSegment($data, $tabName, 'year',     0);
+      $div  = self::buildSegment($data, $tabName, 'division', 2);
+      $day  = self::buildSegment($data, $tabName, 'day',      2);
       
-      $year = self::buildSegment($data, $tabName, 'year');
-      $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
-      $day  = self::buildSegment($data, $tabName, 'day');
       $edtf = $year . '-' . $div . '-' . $day;
       
 /*
       switch ($calType)
       {
          case 'iso-edtf':
-            $year = self::buildSegment($data, $tabName, 'year');
-            $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
-            $day  = self::buildSegment($data, $tabName, 'day');
+            $year = self::buildSegment($data, $tabName, 'year',     0);
+            $div  = self::buildSegment($data, $tabName, 'division', 2);
+            $day  = self::buildSegment($data, $tabName, 'day',      2);
             $edtf = $year . '-' . $div . '-' . $day;
             break;
          case 'iso-yd':
-            $year = self::buildSegment($data, $tabName, 'year');
-            $day  = self::buildSegment($data, $tabName, 'day');
-            $day  = sprintf("%03d", $segment);
+            $year = self::buildSegment($data, $tabName, 'year',0);
+            $day  = self::buildSegment($data, $tabName, 'day', 3);
             $edtf = $year . '-' .  $day;
             break;
          case 'iso-yw':
-            $year = self::buildSegment($data, $tabName, 'year');
-            $week = self::buildSegment($data, $tabName, 'week');
-            $week = 'W' . sprintf("%02", $week);
-            $edtf = $year . '-' . $week;
+            $year = self::buildSegment($data, $tabName, 'year', 0);
+            $week = self::buildSegment($data, $tabName, 'week', 2);
+            $edtf = $year . '-W' . $week;
             break;
          case 'iso-ywd':
-            $year = self::buildSegment($data, $tabName, 'year');
-            $week = self::buildSegment($data, $tabName, 'week');
-            $week = 'W' . sprintf("%02", $week);
-            $day  = self::buildSegment($data, $tabName, 'day');
+            $year =       self::buildSegment($data, $tabName, 'year', 0);
+            $week = 'W' . self::buildSegment($data, $tabName, 'week', 2);
+            $day  =       self::buildSegment($data, $tabName, 'day',  1);
             $edtf = $year . '-' . $week . '-' . $day;
             break;
          case 'julian':
-            $year = self::buildSegment($data, $tabName, 'year');
-            $div  = self::buildSegment($data, $tabName, 'division_choice_raw');
+            $year = self::buildSegment($data, $tabName, 'year', 0);
+            $div  = self::buildSegment($data, $tabName, 'division');
             $week = self::buildSegment($data, $tabName, 'week');
             $day  = self::buildSegment($data, $tabName, 'day');
             $edtf = 'julian date';
@@ -109,42 +104,52 @@ class EDTF
    /**
     *
     *
+    * @TODO get rid of leading zeros -- segExp & segSigD
     */
-   function buildSegment($data, $tabName, $segName)
+   function buildSegment($data, $tabName, $segName, $pad)
    {
+      $segName = $tabName . '_' . $segType;
+      $segName = ($segType == 'division') ? $segName . '_choice_raw' : $segName;
       
-      $segmentName = $tabName . '_' . $segName;
-      $segment     = $data[$segmentName];
-      $segment     = ($segName == 'year') ? $segment : sprintf("%02d", $segment);
-/*self::alert('buildSegment: ' . '|' . $segName . '|' . $segmentName . '|' . $segment . '|');*/
+      /**
+       * Prepare the "naked" segment value:
+       * -- year - strip leading zeros from year
+       * -- everything else - add leading zeros according to $pad param
+       */
+      $segment = $data[$segName];
+      if ($segType == 'year') {
+         $segment = $segment.replace(/\b0+/g, '');
+      } else {
+         $pattern = '%0' . String($pad) . 'd';
+         $segment = sprintf($pattern, $segment);
+      }
 
       /**
        * Conditionally adjust the year segment:
-       * -- prefix year with minus sign if Era is BC (BCE)
-       * -- suffix year with optional exponent (Ennn) and significant digits (Snnn)
+       * -- prefix with minus sign if Era is BC (BCE)
+       * -- suffix with optional exponent (Ennn) and significant digits (Snnn)
        */
-      if ($segName == 'year') {
-         $segEra  = $data[$segmentName . '_era'];
+      if ($segType == 'year') {
+         $segEra  = $data[$segName . '_era_raw'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
-self::alert('1 ' . $segment . ' | ' . $segEra);
-/* !!! sprintf segExp & segSigD !!! */
-/* era still not working */
-         $segExp  = $data[$segmentName . '_exponent'];
-         $segSigD = $data[$segmentName . '_significant_digits'];
-         $suffix = ($segExp  == 0) ? ''      :           'E' . $segExp;
-         $suffix = ($segSigD == 0) ? $suffix : $suffix . 'S' . $segSigD;
-         $segment = $segment . $suffix;
-/*self::alert('2 ' . $segment); */
+self::alert('buildSegment: ' . '|' . $segType . '| |' . $segName . '| |' . $segment . '| |' . $segEra . '|');
+
+         $segExp  = $data[$segName . '_exponent'];
+         $segSigD = $data[$segName . '_significant_digits'];
+         $segSuff = ($segExp  == 0) ? ''       :            'E' . $segExp;
+         $segSuff = ($segSigD == 0) ? $segSuff : $segSuff . 'S' . $segSigD;
+         $segment = $segment . $segSuff;
       }
+
       /** 
        * Conditionally add flags for accuracy and/or confidence
        */
-      $segmentAcc  = $data[$segmentName . '_accuracy_raw'];
-      $segmentConf = $data[$segmentName . '_confidence_raw'];
-      $segmentFlag = ($segmentAcc  == 'approximate') ?                '?' : '';
-      $segmentFlag = ($segmentConf == 'uncertain'  ) ? $segmentFlag . '~' : $segmentFlag;
-      $segment = ($segmentFlag == '?~') ? '%' . $segment : $segmentFlag . $segment;
-/*self::alert('3 ' . $segment);*/
+      $segAcc  = $data[$segName . '_accuracy_raw'];
+      $segConf = $data[$segName . '_confidence_raw'];
+      $segFlag = ($segAcc  == 'approximate') ?            '?' : '';
+      $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '~' : $segFlag;
+      $segment = ($segFlag == '?~') ? '%' . $segment : $segFlag . $segment;
+
       return $segment;
    }
 }

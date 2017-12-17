@@ -13,9 +13,9 @@
 function dateType(thisElement)
 {
    var thisForm        = thisElement.form;
-alert('groups: |' + thisForm.groups + '|');
+/*alert('groups: |' + thisForm.groups + '|');*/
    var elementFullname = String(thisElement.options.fullName);
-alert('dateType elementFullname: ' + elementFullname);
+/*alert('dateType elementFullname: ' + elementFullname);*/
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
    var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
@@ -110,7 +110,7 @@ function tabShowHide(actions, groups, clickGroup)
 function dateDivision(thisElement) {
    var thisForm        = thisElement.form;
    var elementFullname = thisElement.options.fullName;
-alert('dateDivision elementFullname: ' + elementFullname);
+/*alert('dateDivision elementFullname: ' + elementFullname);*/
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
    var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
@@ -138,7 +138,7 @@ alert('dateDivision elementFullname: ' + elementFullname);
  function dateDivisionChoice(thisElement) {
    var thisForm        = thisElement.form;
    var elementFullname = String(thisElement.options.fullName);
-alert('dateDivisionChoice elementFullname: ' + elementFullname);
+/*alert('dateDivisionChoice elementFullname: ' + elementFullname);*/
    var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
    var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
