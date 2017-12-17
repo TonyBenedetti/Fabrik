@@ -126,7 +126,9 @@ class EDTF
       if ($segName == 'year') {
          $segEra  = $data[$segmentName . '_era_raw'];
          $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
-/*self::alert('1 ' .$segment . '|' . $segEra);*/
+self::alert('1 ' . $segment . ' | ' . $segEra);
+/* !!! sprintf segExp & segSigD !!! */
+/* era still not working */
          $segExp  = $data[$segmentName . '_exponent'];
          $segSigD = $data[$segmentName . '_significant_digits'];
          $suffix = ($segExp  == 0)     ? ''      :           'E' . $segExp;
