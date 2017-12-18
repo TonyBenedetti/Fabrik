@@ -68,22 +68,200 @@ function dateType(thisElement)
          jQuery(tabGroupB).trigger('click');
          break;
    }
-   
-   
-   /*
-   // learn group numbers and give them names
-   // including click/default
-   groups = [118, 122, 121];
-
-   switch(chosen) {
-      case choice6 :
-         actions = ['hide', 'show', 'hide'];
-         self::tabShowHide(actions, groups[2]);
-         break;
-   }
-   */
    return;
 }
+
+
+
+/**
+ * The form has just been loaded or the user has just chosen a division of a year:
+ * -- division possibilities are: month, quarter, third, half & season
+ * -- change the label on the "_choice" element
+ * -- update "_choice" element with the value that may have been previously saved
+ *
+ * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
+ */
+function dateDivision(thisElement) {
+   var thisForm, elementFullname
+   var tableName, elementName, tabName
+   var divisionName, division
+   var saverName, saverValue, valueName, value
+   var suffixes, suffix
+   
+   thisForm        = thisElement.form;
+   elementFullname = thisElement.options.fullName;
+
+   tableName   = String(elementFullname).match(/(\w+)___\w+/)[1];
+   elementName = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   tabName     = String(elementName).match(/(\w+)_\w+/)[1];
+   
+   divisionName = thisForm.elements.get(elementFullname).getValue();
+   division     = thisForm.elements.get(divisionName).getValue().toLowerCase();
+
+   suffixes = ['_choice', '_accuracy', '_confidence'];
+   suffixes.forEach(function(suffix) {
+      saverName  = divisionName + '_saver_' + division + suffix;
+      saverValue = thisForm.elements.get(saverName).getValue();
+      valueName  = divisionName + suffix;
+      value      = thisForm.elements.get(valueName).getValue();
+      if (suffix == '_choice') {
+         thisForm.elements.get(valueName).setLabel(divisionName);
+      }
+      thisForm.elements.get(valueName).update(saverValue);
+   });
+   return;
+}
+
+
+
+
+
+
+
+
+/* original !!!
+   divisionName = String(thisForm.elements.get(elementFullname).getValue());
+   saverName    = String(tableName + '___' + tabName + '_saver_' + divisionName).toLowerCase();
+   savedBefore  = String(thisForm.elements.get(saverName).getValue());
+   choiceName   = String(elementFullname + '_choice');
+
+   thisForm.elements.get(choiceName).setLabel(divisionName);
+   thisForm.elements.get(choiceName).update(savedBefore);
+*/
+
+/*
+get division name    xx divisionName = thisForm.elements.get(elementFullname).getValue();
+get division value   xx division = thisForm.elements.get(divisionName).getValue().toLowerCase();
+initialize suffixes  xx SUFFIX = _choice _accuracy _confidence
+loop                 xx for 1 to 3
+get saver name       xx    saverName = divisionName + '_saver_' + division + SUFFIX;
+get saver value      xx    saverValue = thisForm.elements.get(saverName).getValue();
+get value name       xx    valueName = divisionName + SUFFIX;
+get value            xx    value = thisForm.elements.get(valueName).getValue();
+if                   xx    IF SUFFIX == _choice
+set value label      xx       thisForm.elements.get(valueName).setLabel(divisionName);
+set value            xx    thisForm.elements.get(valueName).update(saverValue);
+
+
+get saver name       // saverName = divisionName + '_saver_' + division;
+get saver value      // savedBefore = thisForm.elements.get(saverName).getValue();
+get choice name      // valueName = divisionName + '_choice';
+xxx xxxxxx xxxx  
+set choice label     // thisForm.elements.get(choiceName).setLabel(divisionName);
+set choice value     // thisForm.elements.get(choiceName).update(savedBefore);
+
+get saver name       // saverName = divisionName + '_saver_' + division + '_accuracy';
+get saver value      // savedBefore = thisForm.elements.get(saverName).getValue();
+get accuracy name    // valueName = divisionName + '_accuracy';
+get accuracy value   // value     = thisForm.elements.get(valueName).getValue();
+set accuracy label   // thisForm.elements.get(accuracyName).setLabel(divisionName);
+set accuracy value   // thisForm.elements.get(accuracyName).update(savedBefore);
+
+get saver name       // saverName = divisionName + '_saver_' + division + '_confidence';
+get saver value      // savedBefore = thisForm.elements.get(saverName).getValue();
+get confidence name  // valueName = divisionName + '_confidence';
+get confidence value // value     = thisForm.elements.get(valueName).getValue();
+set confidence label // thisForm.elements.get(confidenceName).setLabel(divisionName);
+set confidence value // thisForm.elements.get(confidenceName).update(savedBefore);
+*/
+
+/* !!! from dateDivisionChoice function below
+   divisionName = tableName + '___' + tabName + '_division';k
+   division     = String(thisForm.elements.get(divisionName).getValue().toLowerCase());
+   
+   valueName = divisionName + '_choice';
+   saverName = String(divisionName + '_saver_' + division);
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+*/
+
+
+
+
+/* ========================================================== */
+/* ========================================================== */
+/* ========================================================== */
+/* ========================================================== */
+/* ========================================================== */
+
+/**
+ * The form has just been loaded or the user has just chosen 
+ * a value for this division of a year:
+ * -- division possibilities are: month, quarter, third, half & season
+ * -- stow away that value in the corresponding "_saver_" element
+ *
+ * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
+ */
+function dateDivisionChoice(thisElement) {
+   var thisForm, elementFullName, tableName, elementName, tabName
+   var divisionName, division
+   
+   thisForm        = thisElement.form;
+   elementFullname = String(thisElement.options.fullName);
+/* alert('dateDivisionChoice elementFullname: ' + elementFullname); */
+   tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
+   elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   tabName         = String(elementName).match(/(\w+)_\w+/)[1];
+
+   divisionName = tableName + '___' + tabName + '_division';
+   division     = String(thisForm.elements.get(divisionName).getValue().toLowerCase());
+
+   valueName = divisionName + '_choice';
+   saverName = String(divisionName + '_saver_' + division);
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+   
+   valueName = divisionName + '_accuracy';
+   saverName = String(divisionName + '_saver_' + division + '_accuracy');
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+   
+   valueName = divisionName + '_confidence';
+   saverName = String(divisionName + '_saver_' + division + '_confidence');
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+
+   return
+
+/*
+   var choiceName   = divisionName + '_choice';
+   var choice       = String(thisForm.elements.get(choiceName).getValue());
+
+   var saverName = String(divisionName + '_saver_' + division);
+
+   thisForm.elements.get(saverName).update(choice);
+
+   return;
+*/
+}
+
+
+/*
+pushSavers(thisForm, divisionName, division);
+
+function pushSavers(thisForm, divisionName, value) {
+   valueName = divisionName + '_choice';
+   saverName = String(divisionName + '_saver_' + division);
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+   
+   valueName = divisionName + '_accuracy';
+   saverName = String(divisionName + '_saver_' + division + '_accuracy');
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+   
+   valueName = divisionName + '_confidence';
+   saverName = String(divisionName + '_saver_' + division + '_confidence');
+   value     = String(thisForm.elements.get(valueName).getValue());
+   thisForm.elements.get(saverName).update(value);
+}
+*/
+
+/* ========================================================== */
+/* ========================================================== */
+/* ========================================================== */
+/* ========================================================== */
+/* ========================================================== */
 
 
 /*
@@ -99,59 +277,15 @@ function tabShowHide(actions, groups, clickGroup)
 */
 
 
-/**
- * The form has just been loaded or the user has just chosen a division of a year:
- * -- division possibilities are: month, quarter, third, half & season
- * -- change the label on the "_choice" element
- * -- update "_choice" element with the value that may have been previously saved
- *
- * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
- */
-function dateDivision(thisElement) {
-   var thisForm        = thisElement.form;
-   var elementFullname = thisElement.options.fullName;
-/*alert('dateDivision elementFullname: ' + elementFullname);*/
-   var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
-   var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
-   var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
+   /*
+   // learn group numbers and give them names
+   // including click/default
+   groups = [118, 122, 121];
 
-   var divisionName = String(thisForm.elements.get(elementFullname).getValue());
-   var saverName    = String(tableName + '___' + tabName + '_saver_' + divisionName).toLowerCase();
-   var savedBefore  = String(thisForm.elements.get(saverName).getValue());
-   var choiceName   = String(elementFullname + '_choice');
-
-   thisForm.elements.get(choiceName).setLabel(divisionName);
-   thisForm.elements.get(choiceName).update(savedBefore);
-   
-   return;
-}
-
-
-/**
- * The form has just been loaded or the user has just chosen 
- * a value for this division of a year:
- * -- division possibilities are: month, quarter, third, half & season
- * -- stow away that value in the corresponding "_saver_" element
- *
- * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
- */
- function dateDivisionChoice(thisElement) {
-   var thisForm        = thisElement.form;
-   var elementFullname = String(thisElement.options.fullName);
-/*alert('dateDivisionChoice elementFullname: ' + elementFullname);*/
-   var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
-   var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
-   var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
-
-   var divisionName = tableName + '___' + tabName + '_division';
-   var division     = String(thisForm.elements.get(divisionName).getValue().toLowerCase());
-   
-   var choiceName   = divisionName + '_choice';
-   var choice       = String(thisForm.elements.get(choiceName).getValue());
-
-   var saverName = String(divisionName + '_saver_' + division);
-
-   thisForm.elements.get(saverName).update(choice);
-   
-   return;
-}
+   switch(chosen) {
+      case choice6 :
+         actions = ['hide', 'show', 'hide'];
+         self::tabShowHide(actions, groups[2]);
+         break;
+   }
+   */
