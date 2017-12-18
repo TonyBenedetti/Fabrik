@@ -124,7 +124,7 @@ function dateDivision(thisElement) {
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
 function dateDivisionChoice(thisElement) {
-   var thisForm, elementFullName, tableName, elementName, tabName;
+   var thisForm, elementFullname, tableName, elementName, tabName;
    var divisionName, division;
    
    thisForm        = thisElement.form;
