@@ -26,7 +26,7 @@ function dateDivision(thisElement) {
 
    suffixes = ['_choice', '_accuracy', '_confidence'];
    /*suffixes.forEach(function(suffix) {*/
-   for (let i=0; i<suffixes.length; i++) {
+   for (i=0; i<suffixes.length; i++) {
       suffix = suffixes[i];
       /*
       saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
