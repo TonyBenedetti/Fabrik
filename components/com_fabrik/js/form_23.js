@@ -22,14 +22,13 @@ function dateDivision(thisElement) {
    nameRoot    = tableName + '___' + tabName + '_';
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
-   divisionName  = divisionName.toLowerCase();
+   divisionName  = divisionLabel.toLowerCase();
 
    suffixes = ['_choice', '_accuracy', '_confidence'];
    suffixes.forEach(function(suffix) {
       saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
-
-      activeName  = nameRoot + 'division_' + suffix;
+      activeName = nameRoot + 'division_' + suffix;
       
       if (suffix == '_choice') {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
