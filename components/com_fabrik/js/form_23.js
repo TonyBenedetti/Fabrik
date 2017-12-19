@@ -28,10 +28,11 @@ function dateDivision(thisElement) {
    suffixes.forEach(function(suffix) {
    
       saverName  = nameRoot + '_saver_' + divisionName + '_' + suffix;
+      activeName = nameRoot + '_division_' + suffix;
 alert('in|'+suffixes+'|'+suffix+'|'+saverName+'|'+saverValue+'|'+activeName+'|'+nameRoot+'|'+divisionName+'|');
       saverValue = thisForm.elements.get(saverName).getValue();
       
-      activeName = nameRoot + '_division_' + suffix;
+
       
       if (suffix == 'choice') {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
