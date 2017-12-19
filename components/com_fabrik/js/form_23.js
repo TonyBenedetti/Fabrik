@@ -26,16 +26,18 @@ function dateDivision(thisElement) {
 
    suffixes = ['choice', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
+   
       saverName  = nameRoot + '_saver_' + divisionName + '_' + suffix;
+alert('in|'+suffixes+'|'+suffix+'|'+saverName+'|'+saverValue+'|'+activeName+'|'+nameRoot+'|'+divisionName+'|');
       saverValue = thisForm.elements.get(saverName).getValue();
+      
       activeName = nameRoot + '_division_' + suffix;
       
       if (suffix == 'choice') {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
-      
-alert('in |'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+
    });
 
    return;
