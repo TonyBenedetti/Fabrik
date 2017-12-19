@@ -24,9 +24,21 @@ function dateDivision(thisElement) {
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
    divisionName  = divisionLabel.toLowerCase();
 
+/*
+const items = ['item1', 'item2', 'item3'];
+const copy = [];
+
+for (let i=0; i<suffixes.length; i++) {
+  copy.push(items[i])
+}
+*/
+
    suffixes = ['_choice', '_accuracy', '_confidence'];
-   /*
+/*
    suffixes.forEach(function(suffix) {
+*/
+   for (let i=0; i<suffixes.length; i++) {
+      suffix = suffixes[i];
       saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
       activeName = nameRoot + 'division_' + suffix;
@@ -35,10 +47,13 @@ function dateDivision(thisElement) {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
-
+alert('|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+   }
+/*
    });
-   */
-alert('|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+alert('|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+*/
+
    return;
 }
 
