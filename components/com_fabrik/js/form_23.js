@@ -9,7 +9,7 @@
 function dateDivision(thisElement) {
    var thisForm, elementFullname;
    var tableName, elementName, tabName, nameRoot;
-   var divisionName, division;
+   var divisionLabel, divisionName;
    var saverName, saverValue, activeName, activeValue;
    var suffixes, suffix;
    
@@ -25,6 +25,7 @@ function dateDivision(thisElement) {
    divisionName  = divisionLabel.toLowerCase();
 
    suffixes = ['_choice', '_accuracy', '_confidence'];
+   /*
    suffixes.forEach(function(suffix) {
       saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
@@ -34,24 +35,28 @@ function dateDivision(thisElement) {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
-alert('|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+
    });
+   */
+alert('|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
    return;
 }
 
-
-/**
+/*
+//**
  * The form has just been loaded or the user has just chosen 
  * a value for this division of a year:
  * -- division possibilities are: month, quarter, third, half & season
  * -- stow away that value in the corresponding "_saver_" element
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
- */
+ //
 function dateDivisionChoice(thisElement) {
    var thisForm, elementFullname, nameRoot;
    var elementName, tableName, tabName;
    var divisionLabel, divisionName;
+   var saverName, saverValue, activeName, activeValue;
+   var suffixes;
    
    thisForm        = thisElement.form;
    elementFullname = thisElement.options.fullName;
