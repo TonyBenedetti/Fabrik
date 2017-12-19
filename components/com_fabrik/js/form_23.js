@@ -19,15 +19,14 @@ function dateDivision(thisElement) {
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
    tabName     = elementName.match(/(\w+)_\w+/)[1];
-   nameRoot    = tableName + '___' + tabName + '_';
+   nameRoot    = tableName + '___' + tabName;
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
    divisionName  = divisionLabel.toLowerCase() + '_';
 
    suffixes = ['choice', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      suffix = suffixes[i];
-      saverName  = nameRoot + 'saver_' + divisionName + suffix;
+      saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
       activeName = nameRoot + 'division_' + suffix;
       
@@ -36,21 +35,21 @@ function dateDivision(thisElement) {
       }
       thisForm.elements.get(activeName).update(saverValue);
       
-alert('in |'+ i +'|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+alert('in |'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
    });
 
    return;
 }
 
-/*
-//**
+
+/**
  * The form has just been loaded or the user has just chosen 
  * a value for this division of a year:
  * -- division possibilities are: month, quarter, third, half & season
  * -- stow away that value in the corresponding "_saver_" element
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
- //
+ */
 function dateDivisionChoice(thisElement) {
    var thisForm, elementFullname, nameRoot;
    var elementName, tableName, tabName;
@@ -69,7 +68,7 @@ function dateDivisionChoice(thisElement) {
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
    divisionName  = divisionLabel.toLowerCase();
 
-   suffixes = ['_choice', '_accuracy', '_confidence'];
+   suffixes = ['choice', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
       saverName   = nameRoot + 'saver_' + divisionName + '_' + suffix;
       saverValue  = thisForm.elements.get(saverName).getValue();
