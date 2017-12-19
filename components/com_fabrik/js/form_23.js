@@ -47,12 +47,13 @@ for (let i=0; i<suffixes.length; i++) {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
-alert('|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+alert('|'+ i +'|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
    }
 /*
    });
-alert('|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
 */
+alert('|'+ i + '|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+
 
    return;
 }
