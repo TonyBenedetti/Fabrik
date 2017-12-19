@@ -22,13 +22,13 @@ function dateDivision(thisElement) {
    nameRoot    = tableName + '___' + tabName;
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
-   divisionName  = divisionLabel.toLowerCase() + '_';
+   divisionName  = divisionLabel.toLowerCase();
 
    suffixes = ['choice', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
+      saverName  = nameRoot + '_saver_' + divisionName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
-      activeName = nameRoot + 'division_' + suffix;
+      activeName = nameRoot + '_division_' + suffix;
       
       if (suffix == 'choice') {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
@@ -63,16 +63,16 @@ function dateDivisionChoice(thisElement) {
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
    tabName     = elementName.match(/(\w+)_\w+/)[1];
-   nameRoot    = tableName + '___' + tabName + '_';
+   nameRoot    = tableName + '___' + tabName;
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
    divisionName  = divisionLabel.toLowerCase();
 
    suffixes = ['choice', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName   = nameRoot + 'saver_' + divisionName + '_' + suffix;
+      saverName   = nameRoot + '_saver_' + divisionName + '_' + suffix;
       saverValue  = thisForm.elements.get(saverName).getValue();
-      activeName  = nameRoot + 'division_' + suffix;
+      activeName  = nameRoot + '_division_' + suffix;
       activeValue = thisForm.elements.get(activeName).getValue();
       thisForm.elements.get(saverName).update(activeValue);
    });
