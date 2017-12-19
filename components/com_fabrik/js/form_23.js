@@ -22,26 +22,22 @@ function dateDivision(thisElement) {
    nameRoot    = tableName + '___' + tabName + '_';
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
-   divisionName  = divisionLabel.toLowerCase();
+   divisionName  = divisionLabel.toLowerCase() + '_';
 
-   suffixes = ['_choice', '_accuracy', '_confidence'];
-   /*suffixes.forEach(function(suffix) {*/
-   for (i=0; i<suffixes.length; i++) {
+   suffixes = ['choice', 'accuracy', 'confidence'];
+   suffixes.forEach(function(suffix) {
       suffix = suffixes[i];
-      /*
-      saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
+      saverName  = nameRoot + 'saver_' + divisionName + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
       activeName = nameRoot + 'division_' + suffix;
       
-      if (suffix == '_choice') {
+      if (suffix == 'choice') {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
-      */
+      
 alert('in |'+ i +'|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
-   }
-/*   }); for the forEach */
-alert('out|'+ i +'|'+ suffixes + '|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
+   });
 
    return;
 }
