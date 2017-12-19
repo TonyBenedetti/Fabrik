@@ -31,7 +31,7 @@ function dateDivision(thisElement) {
       activeName = nameRoot + '_division_' + suffix;
 alert('in|'+suffixes+'|'+suffix+'|'+saverName+'|'+saverValue+'|'+activeName+'|'+nameRoot+'|'+divisionName+'|');
       saverValue = thisForm.elements.get(saverName).getValue();
-      
+alert('in|'+suffixes+'|'+suffix+'|'+saverName+'|'+saverValue+'|'+activeName+'|'+nameRoot+'|'+divisionName+'|');
 
       
       if (suffix == 'choice') {
