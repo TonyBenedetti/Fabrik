@@ -26,21 +26,13 @@ function dateDivision(thisElement) {
 
    suffixes = ['choice', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-   
       saverName  = nameRoot + '_saver_' + divisionName + '_' + suffix;
       activeName = nameRoot + '_division_' + suffix;
-alert('in|'+suffixes+'|'+suffix+'|'+saverName+'|'+saverValue+'|'+activeName+'|'+nameRoot+'|'+divisionName+'|');
       saverValue = thisForm.elements.get(saverName).getValue();
-alert('in|'+suffixes+'|'+suffix+'|'+saverName+'|'+saverValue+'|'+activeName+'|'+nameRoot+'|'+divisionName+'|');
-
-      
-      if (suffix == 'choice') {
+      if (suffix == 'choice')
          thisForm.elements.get(activeName).setLabel(divisionLabel);
-      }
       thisForm.elements.get(activeName).update(saverValue);
-
    });
-
    return;
 }
 
@@ -102,6 +94,8 @@ function dateType(thisElement)
    var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    var tableName       = elementFullname.match(/(\w+)___\w+/)[1];
    var tabName         = elementName.match(/(\w+)_\w+/)[1];
+
+alert(thisForm.options());
 
    var chosen = thisForm.elements.get(elementFullname).getValue();
 
