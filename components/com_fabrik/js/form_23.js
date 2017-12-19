@@ -34,6 +34,7 @@ function dateDivision(thisElement) {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
+alert('|'+ suffix +'|'+ saverName +'|'+ saverValue +'|'+ activeName +'|'+ nameRoot +'|'+ divisionName +'|');
    });
    return;
 }
