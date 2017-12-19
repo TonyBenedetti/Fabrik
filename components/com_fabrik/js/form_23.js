@@ -10,15 +10,15 @@ function dateDivision(thisElement) {
    var thisForm, elementFullname;
    var tableName, elementName, tabName, nameRoot;
    var divisionName, division;
-   var saverName, saverValue, activeName, value;
+   var saverName, saverValue, activeName, activeValue;
    var suffixes, suffix;
    
    thisForm        = thisElement.form;
    elementFullname = thisElement.options.fullName;
 
-   elementName = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
-   tableName   = String(elementFullname).match(/(\w+)___\w+/)[1];
-   tabName     = String(elementName).match(/(\w+)_\w+/)[1];
+   elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   tableName   = elementFullname.match(/(\w+)___\w+/)[1];
+   tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName + '_';
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
@@ -49,7 +49,7 @@ function dateDivision(thisElement) {
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
 function dateDivisionChoice(thisElement) {
-   var thisForm, elementFullname,, nameRoot;
+   var thisForm, elementFullname, nameRoot;
    var elementName, tableName, tabName;
    var divisionLabel, divisionName;
    
@@ -59,7 +59,7 @@ function dateDivisionChoice(thisElement) {
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; // start_division_suffix
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];          // gn_event
    tabName     = elementName.match(/(\w+)_\w+/)[1];                // start
-   nameRoot    = tableName + '___' + tabName + '_' + ;
+   nameRoot    = tableName + '___' + tabName + '_';
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
    divisionName  = divisionLabel.toLowerCase();
@@ -71,7 +71,7 @@ function dateDivisionChoice(thisElement) {
       activeName  = nameRoot + 'division_' + suffix;
       activeValue = thisForm.elements.get(activeName).getValue();
       thisForm.elements.get(saverName).update(activeValue);
-   }
+   });
    return;
 }
 
@@ -91,10 +91,10 @@ function dateDivisionChoice(thisElement) {
 function dateType(thisElement)
 {
    var thisForm        = thisElement.form;
-   var elementFullname = String(thisElement.options.fullName);
-   var elementName     = String(elementFullname).match(/[a-zA-Z0-9]+___(\w+)/)[1];
-   var tableName       = String(elementFullname).match(/(\w+)___\w+/)[1];
-   var tabName         = String(elementName).match(/(\w+)_\w+/)[1];
+   var elementFullname = thisElement.options.fullName;
+   var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   var tableName       = elementFullname.match(/(\w+)___\w+/)[1];
+   var tabName         = elementName.match(/(\w+)_\w+/)[1];
 
    var chosen = thisForm.elements.get(elementFullname).getValue();
 
