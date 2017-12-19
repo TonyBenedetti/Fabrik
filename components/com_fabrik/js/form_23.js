@@ -26,10 +26,10 @@ function dateDivision(thisElement) {
 
    suffixes = ['_choice', '_accuracy', '_confidence'];
    suffixes.forEach(function(suffix) {
-      saverName  = nameRoot + 'saver_' + division + '_' + suffix;
+      saverName  = nameRoot + 'saver_' + divisionName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
 
-      activeName  = nameRoot + divisionName + '_' + suffix;
+      activeName  = nameRoot + 'division_' + suffix;
       
       if (suffix == '_choice') {
          thisForm.elements.get(activeName).setLabel(divisionLabel);
@@ -54,11 +54,11 @@ function dateDivisionChoice(thisElement) {
    var divisionLabel, divisionName;
    
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullName;                 // gn_event___start_division_xxx
+   elementFullname = thisElement.options.fullName;
    
-   elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; // start_division_suffix
-   tableName   = elementFullname.match(/(\w+)___\w+/)[1];          // gn_event
-   tabName     = elementName.match(/(\w+)_\w+/)[1];                // start
+   elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   tableName   = elementFullname.match(/(\w+)___\w+/)[1];
+   tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName + '_';
    
    divisionLabel = thisForm.elements.get(elementFullname).getValue();
