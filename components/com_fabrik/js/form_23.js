@@ -26,7 +26,7 @@ function listAllProperties(o) {
    var suffixes, suffix;
    
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullname;
+   elementFullname = thisElement.options.fullName;
 
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
@@ -66,7 +66,7 @@ function DivisionPicklist(thisElement) {
    var suffixes, suffix;
 
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullname;
+   elementFullname = thisElement.options.fullName;
    
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
@@ -103,12 +103,11 @@ function DivisionPicklist(thisElement) {
 function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
-   
-alert(typeOf(thisElement.options));
+
 alert(listAllProperties(thisElement.options));
 
-/*
-   var elementFullname = thisElement.options.fullname;
+
+   var elementFullname = thisElement.options.fullName;
    var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
 
    var chosen = thisForm.elements.get(elementFullname).getValue();
@@ -159,6 +158,5 @@ alert(listAllProperties(thisElement.options));
          jQuery(tabGroupB).trigger('click');
          break;
    }
-*/
    return;
 }
