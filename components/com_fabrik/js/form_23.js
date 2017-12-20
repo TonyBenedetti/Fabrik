@@ -91,7 +91,7 @@ function DivisionPicklist(thisElement) {
 function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
-alert(thisElement.options());
+alert(thisElement.options[0]);
 /*
    var elementFullname = thisElement.options.fullname;
    var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
