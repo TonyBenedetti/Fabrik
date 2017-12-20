@@ -6,11 +6,13 @@
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
+ /*
  function DivisionType(thisElement) {
    var thisForm, elementFullname;
    var tableName, elementName, tabName, nameRoot;
    var divisionTypeLabel, divisionTypeName;
    var saverName, saverValue, activeName, activeValue;
+   var suffixes, suffix;
    
    thisForm        = thisElement.form;
    elementFullname = thisElement.options.fullname;
@@ -23,7 +25,7 @@
    divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
    divisionTypeName  = divisionTypeLabel.toLowerCase();
 
-   var suffixes = ['picklist', 'accuracy', 'confidence'];
+   suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
       saverName  = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
       activeName = nameRoot + '_division_type_' + suffix;
@@ -35,7 +37,7 @@
    });
    return;
 }
-
+*/
 
 /**
  * The form has just been loaded or the user has just chosen 
@@ -45,12 +47,14 @@
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
+ /*
 function DivisionPicklist(thisElement) {
    var thisForm, elementFullname, nameRoot;
    var elementName, tableName, tabName;
    var divisionTypeLabel, divisionTypeName;
    var saverName, saverValue, activeName, activeValue;
-   
+   var suffixes, suffix;
+
    thisForm        = thisElement.form;
    elementFullname = thisElement.options.fullname;
    
@@ -62,7 +66,7 @@ function DivisionPicklist(thisElement) {
    divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
    divisionTypeName  = divisionTypeLabel.toLowerCase();
 
-   const suffixes = ['picklist', 'accuracy', 'confidence'];
+   suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
       saverName   = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
       activeName  = nameRoot + '_division_type_' + suffix;
@@ -72,7 +76,7 @@ function DivisionPicklist(thisElement) {
    });
    return;
 }
-
+*/
 
 /**
  * Show/hide combinations of the Fabrik groups
