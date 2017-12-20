@@ -6,7 +6,6 @@
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
- /*
  function DivisionType(thisElement) {
    var thisForm, elementFullname;
    var tableName, elementName, tabName, nameRoot;
@@ -37,7 +36,7 @@
    });
    return;
 }
-*/
+
 
 /**
  * The form has just been loaded or the user has just chosen 
@@ -47,7 +46,6 @@
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
- /*
 function DivisionPicklist(thisElement) {
    var thisForm, elementFullname, nameRoot;
    var elementName, tableName, tabName;
@@ -76,7 +74,7 @@ function DivisionPicklist(thisElement) {
    });
    return;
 }
-*/
+
 
 /**
  * Show/hide combinations of the Fabrik groups
