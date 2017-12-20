@@ -1,3 +1,15 @@
+function listAllProperties(o) {
+	var objectToInspect;     
+	var result = [];
+	
+	for(objectToInspect = o; objectToInspect !== null; objectToInspect = Object.getPrototypeOf(objectToInspect)) {  
+      result = result.concat(Object.getOwnPropertyNames(objectToInspect));  
+	}
+	
+	return result; 
+}
+
+
 /**
  * The form has just been loaded or the user has just chosen a division of a year:
  * -- division possibilities are: month, quarter, third, half & season
@@ -91,7 +103,10 @@ function DivisionPicklist(thisElement) {
 function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
+   
 alert(typeOf(thisElement));
+alert(listAllProperties(thisElement));
+
 /*
    var elementFullname = thisElement.options.fullname;
    var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
