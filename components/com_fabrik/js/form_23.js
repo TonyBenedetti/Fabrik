@@ -1,36 +1,36 @@
 /**
  * The form has just been loaded or the user has just chosen a division of a year:
  * -- division possibilities are: month, quarter, third, half & season
- * -- change the label on the "_choice" element
- * -- update "_choice" element with the value that may have been previously saved
+ * -- change the label on the "_picklist" element
+ * -- update "_picklist" element with the value that may have been previously saved
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function dateDivision(thisElement) {
+ function DivisionType(thisElement) {
    var thisForm, elementFullname;
    var tableName, elementName, tabName, nameRoot;
-   var divisionLabel, divisionName;
+   var divisionTypeLabel, divisionTypeName;
    var saverName, saverValue, activeName, activeValue;
-   var suffixes, suffix;
    
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullName;
+   elementFullname = thisElement.options.fullname;
 
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
    tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName;
-   
-   divisionLabel = thisForm.elements.get(elementFullname).getValue();
-   divisionName  = divisionLabel.toLowerCase();
 
-   suffixes = ['choice', 'accuracy', 'confidence'];
+   divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
+   divisionTypeName  = divisionTypeLabel.toLowerCase();
+
+   var suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName  = nameRoot + '_saver_' + divisionName + '_' + suffix;
-      activeName = nameRoot + '_division_' + suffix;
+      saverName  = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
+      activeName = nameRoot + '_division_type_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
-      if (suffix == 'choice')
-         thisForm.elements.get(activeName).setLabel(divisionLabel);
+      if (suffix == 'picklist') {
+         thisForm.elements.get(activeName).setLabel(divisionTypeLabel);
+      }
       thisForm.elements.get(activeName).update(saverValue);
    });
    return;
@@ -45,29 +45,28 @@ function dateDivision(thisElement) {
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function dateDivisionChoice(thisElement) {
+function DivisionPicklist(thisElement) {
    var thisForm, elementFullname, nameRoot;
    var elementName, tableName, tabName;
-   var divisionLabel, divisionName;
+   var divisionTypeLabel, divisionTypeName;
    var saverName, saverValue, activeName, activeValue;
-   var suffixes;
    
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullName;
+   elementFullname = thisElement.options.fullname;
    
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
    tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName;
    
-   divisionLabel = thisForm.elements.get(elementFullname).getValue();
-   divisionName  = divisionLabel.toLowerCase();
+   divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
+   divisionTypeName  = divisionTypeLabel.toLowerCase();
 
-   suffixes = ['choice', 'accuracy', 'confidence'];
+   const suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName   = nameRoot + '_saver_' + divisionName + '_' + suffix;
+      saverName   = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
+      activeName  = nameRoot + '_division_type_' + suffix;
       saverValue  = thisForm.elements.get(saverName).getValue();
-      activeName  = nameRoot + '_division_' + suffix;
       activeValue = thisForm.elements.get(activeName).getValue();
       thisForm.elements.get(saverName).update(activeValue);
    });
@@ -87,15 +86,11 @@ function dateDivisionChoice(thisElement) {
  * @TODO get list of groups 
  * @TODO new function to loop array of 3 "hide/show"s for choice switch below
  */
-function dateType(thisElement)
+function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
-   var elementFullname = thisElement.options.fullName;
+   var elementFullname = thisElement.options.fullname;
    var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
-   var tableName       = elementFullname.match(/(\w+)___\w+/)[1];
-   var tabName         = elementName.match(/(\w+)_\w+/)[1];
-
-alert(thisForm.options());
 
    var chosen = thisForm.elements.get(elementFullname).getValue();
 

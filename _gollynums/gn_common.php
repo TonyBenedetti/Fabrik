@@ -17,7 +17,7 @@ class EDTF
    function getEDTF($data, $table, $type) {
       $tableName = 'gn_' . $table . '___';
 
-      $typeName = $tableName . 'type';
+      $typeName = $tableName . 'basics_date_type';
       $e = ($data[$typeName] == 'Single Date') ? 'start' : $type;
       
       $ss = $data[$tableName . 'start_status_raw'];
@@ -112,7 +112,7 @@ class EDTF
    function buildSegment($data, $tabName, $segType, $pad)
    {
       $segName = $tabName . '_' . $segType;
-      $segName = ($segType == 'division') ? $segName . '_choice_raw' : $segName;
+      $segName = ($segType == 'division') ? $segName . '_picklist_raw' : $segName;
       
       /**
        * Prepare the "naked" segment value:
@@ -123,7 +123,7 @@ class EDTF
       $pattern = '%0' . (string)$pad . 'd';
       $segment = sprintf($pattern, ltrim($segment, '0'));
 
-      /**
+      /***
        * Conditionally adjust the year segment:
        * -- prefix with minus sign if Era is BC (BCE)
        * -- suffix with optional exponent (Ennn) and significant digits (Snnn)
