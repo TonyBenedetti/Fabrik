@@ -104,8 +104,8 @@ function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
    
-alert(typeOf(thisElement));
-alert(listAllProperties(thisElement));
+alert(typeOf(thisElement.options));
+alert(listAllProperties(thisElement.options));
 
 /*
    var elementFullname = thisElement.options.fullname;
