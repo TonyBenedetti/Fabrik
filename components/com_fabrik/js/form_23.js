@@ -31,8 +31,8 @@ function listAllProperties(o) {
    elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; /* start_division_type */
    tableName       = elementFullname.match(/(\w+)___\w+/)[1];          /* gn_event */
    tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];       /* start */
-   basicName       = elementName.match(/[a-zA-Z0-9]_(\w+/))[1];        /* division_type */
-   basicName       = basicName.match(/([a-zA-Z0-9])_\w+/)[1];          /* division */
+   basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];       /* division_type */
+   basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];         /* division */
    nameRoot        = tableName + '___' + tabName;
 
    picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
