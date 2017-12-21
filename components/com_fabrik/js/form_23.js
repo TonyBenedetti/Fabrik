@@ -33,7 +33,7 @@ function listAllProperties(o) {
    tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName;
 
-   divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
+   divisionTypeLabel = String(thisForm.elements.get(elementFullname).getValue());
    divisionTypeName  = divisionTypeLabel.toLowerCase();
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
@@ -73,7 +73,7 @@ function DivisionPicklist(thisElement) {
    tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName;
    
-   divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
+   divisionTypeLabel = String(thisForm.elements.get(elementFullname).getValue());
    divisionTypeName  = divisionTypeLabel.toLowerCase();
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
