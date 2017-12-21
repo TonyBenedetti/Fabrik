@@ -63,7 +63,7 @@ function listAllProperties(o) {
 function DivisionPicklist(thisElement) {
    var thisForm, elementFullname, elementName;
    var tableName, tabName, basicName, nameRoot;
-   var picklistLabel, picklistName;
+   var typeLabel, typeName;
    var suffixes, suffix;
    var saverName, saverValue, activeName, activeValue;
 
@@ -76,13 +76,13 @@ function DivisionPicklist(thisElement) {
    basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];       /* division_type */
    basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];         /* division */
    nameRoot        = tableName + '___' + tabName;
-
-   picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
-   picklistName  = picklistLabel.toLowerCase();
+   typeFullname    = nameRoot + '_' + basicName + '_type';
+   typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase());
+/*   typeName  = typeLabel.toLowerCase(); */
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName  = nameRoot + '_saver_' + picklistName + '_' + suffix;
+      saverName  = nameRoot + '_saver_' + typeName + '_' + suffix;
       activeName = nameRoot + '_' + basicName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
       activeValue = thisForm.elements.get(activeName).getValue();
