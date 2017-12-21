@@ -41,7 +41,7 @@ function listAllProperties(o) {
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
       saverName  = nameRoot + '_saver_' + picklistName + '_' + suffix;
-      activeName = nameRoot + '_' + basicName '_' + suffix;
+      activeName = nameRoot + '_' + basicName + '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
       if (suffix == 'picklist') {
          thisForm.elements.get(activeName).setLabel(picklistLabel);
