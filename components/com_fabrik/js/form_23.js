@@ -19,7 +19,7 @@ function listAllProperties(o) {
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
  function DivisionType(thisElement) {
-   var thisForm, elementFullname, elementName, ;
+   var thisForm, elementFullname, elementName;
    var tableName, tabName, basicName, nameRoot;
    var picklistLabel, picklistName;
    var suffixes, suffix;
@@ -61,7 +61,7 @@ function listAllProperties(o) {
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
 function DivisionPicklist(thisElement) {
-   var thisForm, elementFullname, elementName, ;
+   var thisForm, elementFullname, elementName;
    var tableName, tabName, basicName, nameRoot;
    var picklistLabel, picklistName;
    var suffixes, suffix;
