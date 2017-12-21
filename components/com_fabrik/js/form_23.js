@@ -36,7 +36,7 @@ function listAllProperties(o) {
    nameRoot        = tableName + '___' + tabName;
 
    picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
-   picklistName  = divisionTypeLabel.toLowerCase();
+   picklistName  = picklistLabel.toLowerCase();
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
