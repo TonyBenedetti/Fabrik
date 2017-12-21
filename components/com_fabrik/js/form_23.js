@@ -26,23 +26,25 @@ function listAllProperties(o) {
    var suffixes, suffix;
    
    thisForm        = thisElement.form;
-   elementFullname = String(thisElement.options.fullName);
-   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    
-   tableName   = elementFullname.match(/(\w+)___\w+/)[1];
-   tabName     = elementName.match(/(\w+)_\w+/)[1];
-   nameRoot    = tableName + '___' + tabName;
+   elementFullname = String(thisElement.options.fullName);             /* gn_event___start_division_type */
+   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; /* start_division_type */
+   tableName       = elementFullname.match(/(\w+)___\w+/)[1];          /* gn_event */
+   tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];       /* start */
+   basicName       = elementName.match(/[a-zA-Z0-9]_(\w+/))[1];        /* division_type */
+   basicName       = basicName.match(/([a-zA-Z0-9])_\w+/)[1];          /* division */
+   nameRoot        = tableName + '___' + tabName;
 
-   divisionTypeLabel = String(thisForm.elements.get(elementFullname).getValue());
-   divisionTypeName  = divisionTypeLabel.toLowerCase();
+   picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
+   picklistName  = divisionTypeLabel.toLowerCase();
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName  = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
-      activeName = nameRoot + '_division_type_' + suffix;
+      saverName  = nameRoot + '_saver_' + picklistName + '_' + suffix;
+      activeName = nameRoot + '_' + basicName '_' + suffix;
       saverValue = thisForm.elements.get(saverName).getValue();
       if (suffix == 'picklist') {
-         thisForm.elements.get(activeName).setLabel(divisionTypeLabel);
+         thisForm.elements.get(activeName).setLabel(picklistLabel);
       }
       thisForm.elements.get(activeName).update(saverValue);
    });
