@@ -27,20 +27,20 @@ function listAllProperties(o) {
    
    thisForm        = thisElement.form;
    elementFullname = String(thisElement.options.fullName);
-   elementName     = String(elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]);
+   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    
-   tableName   = String(elementFullname.match(/(\w+)___\w+/)[1]);
-   tabName     = String(elementName.match(/(\w+)_\w+/)[1]);
-   nameRoot    = String(tableName + '___' + tabName);
+   tableName   = elementFullname.match(/(\w+)___\w+/)[1];
+   tabName     = elementName.match(/(\w+)_\w+/)[1];
+   nameRoot    = tableName + '___' + tabName;
 
-   divisionTypeLabel = String(thisForm.elements.get(elementFullname).getValue());
-   divisionTypeName  = String(divisionTypeLabel.toLowerCase());
+   divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
+   divisionTypeName  = divisionTypeLabel.toLowerCase();
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName  = String(nameRoot + '_saver_' + divisionTypeName + '_' + suffix);
-      activeName = String(nameRoot + '_division_type_' + suffix);
-      saverValue = String(thisForm.elements.get(saverName).getValue());
+      saverName  = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
+      activeName = nameRoot + '_division_type_' + suffix;
+      saverValue = thisForm.elements.get(saverName).getValue();
       if (suffix == 'picklist') {
          thisForm.elements.get(activeName).setLabel(divisionTypeLabel);
       }
@@ -67,21 +67,21 @@ function DivisionPicklist(thisElement) {
 
    thisForm        = thisElement.form;
    elementFullname = String(thisElement.options.fullName);
-   elementName = String( elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]);
+   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    
-   tableName   = String(elementFullname.match(/(\w+)___\w+/)[1]);
-   tabName     = String(elementName.match(/(\w+)_\w+/)[1]);
-   nameRoot    = String(tableName + '___' + tabName);
+   tableName   = elementFullname.match(/(\w+)___\w+/)[1];
+   tabName     = elementName.match(/(\w+)_\w+/)[1];
+   nameRoot    = tableName + '___' + tabName;
    
-   divisionTypeLabel = String(thisForm.elements.get(elementFullname).getValue());
-   divisionTypeName  = String(divisionTypeLabel.toLowerCase());
+   divisionTypeLabel = thisForm.elements.get(elementFullname).getValue();
+   divisionTypeName  = divisionTypeLabel.toLowerCase();
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
-      saverName   = String(nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
-      activeName  = String(nameRoot + '_division_type_' + suffix;
-      saverValue  = String(thisForm.elements.get(saverName).getValue();
-      activeValue = String(thisForm.elements.get(activeName).getValue();
+      saverName   = nameRoot + '_saver_' + divisionTypeName + '_' + suffix;
+      activeName  = nameRoot + '_division_type_' + suffix;
+      saverValue  = thisForm.elements.get(saverName).getValue();
+      activeValue = thisForm.elements.get(activeName).getValue();
       thisForm.elements.get(saverName).update(activeValue);
    });
    return;
@@ -104,7 +104,6 @@ function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
    var elementFullname = String(thisElement.options.fullName);
-   var elementName     = String( elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]);
 
    var chosen = thisForm.elements.get(elementFullname).getValue();
 
