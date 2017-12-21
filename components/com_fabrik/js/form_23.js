@@ -26,7 +26,7 @@ function listAllProperties(o) {
    var suffixes, suffix;
    
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullName;
+   elementFullname = String(thisElement.options.fullName);
 
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
@@ -66,9 +66,9 @@ function DivisionPicklist(thisElement) {
    var suffixes, suffix;
 
    thisForm        = thisElement.form;
-   elementFullname = thisElement.options.fullName;
-   
+   elementFullname = String(thisElement.options.fullName);
    elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+   
    tableName   = elementFullname.match(/(\w+)___\w+/)[1];
    tabName     = elementName.match(/(\w+)_\w+/)[1];
    nameRoot    = tableName + '___' + tabName;
@@ -103,11 +103,8 @@ function DivisionPicklist(thisElement) {
 function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
-
-alert(listAllProperties(thisElement.options));
-
-
-   var elementFullname = thisElement.options.fullName;
+/*alert(listAllProperties(thisElement.options));*/
+   var elementFullname = String(thisElement.options.fullName);
    var elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
 
    var chosen = thisForm.elements.get(elementFullname).getValue();
