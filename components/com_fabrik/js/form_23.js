@@ -1,3 +1,4 @@
+let GN = new gn_common();
 function formDateType(thisElement) {
 	GN.commonDateType(thisElement)
 }
