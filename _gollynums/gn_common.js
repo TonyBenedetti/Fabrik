@@ -1,7 +1,7 @@
 /**
  * 
  */
-class gn_common {
+class GN {
 	/**
 	 * 
 	 */

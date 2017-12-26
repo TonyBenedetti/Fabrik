@@ -1,13 +1,13 @@
 function formDateType(thisElement) {
-	commonDateType(thisElement)
+	GN.commonDateType(thisElement)
 }
 
 function formDateDivisionType(thisElement) {
-	commonDateDivisionType(thisElement)
+	GN.commonDateDivisionType(thisElement)
 }
 
 function formDateDivisionPicklist(thisElement) {
-	commonDateDivisionPicklist(thisElement)
+	GN.commonDateDivisionPicklist(thisElement)
 }
 
 /*
