@@ -5,6 +5,7 @@ class gn_common {
 	/**
 	 * 
 	 */
+	/*
 	function listAllProperties(o) {
 		var objectToInspect;     
 		var result = [];
@@ -13,6 +14,7 @@ class gn_common {
 		}
 		return result; 
 	}
+	*/
 
 	/**
 	 * The form has just been loaded or the user has just chosen a division of a year:
