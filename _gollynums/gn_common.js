@@ -1,5 +1,5 @@
 /**
- * Common functions
+ * Common functions for GollyNums forms
  */
 class gn_common {
 	/**
