@@ -31,12 +31,12 @@ class gn_common {
 		var suffixes, suffix;
 		var saverName, saverValue, activeName, activeValue;
 		thisForm        = thisElement.form;
-		elementFullname = String(thisElement.options.fullName);             /* gn_event___start_division_type */
-		elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; /* start_division_type */
-		tableName       = elementFullname.match(/(\w+)___\w+/)[1];          /* gn_event */
-		tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];       /* start */
-		basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];       /* division_type */
-		basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];         /* division */
+		elementFullname = String(thisElement.options.fullName);
+		elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+		tableName       = elementFullname.match(/(\w+)___\w+/)[1];
+		tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
+		basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
+		basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
 		nameRoot        = tableName + '___' + tabName;
 		picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
 		picklistName  = picklistLabel.toLowerCase();
@@ -152,6 +152,7 @@ class gn_common {
 	 * @param {string} tabName - "start", "duration", or "end"
 	 * @todo Get Fourmilab calendar working
 	 */
+	/*
 	function commonDateCalendarType(thisElement, tabName) {
 		return; // "beat it" - until rest of function is ready to be tested
 		var thisForm = thisElement.form;
@@ -162,22 +163,23 @@ class gn_common {
 		var calendar = thisForm.elements.get(calendars).getValue();
 		switch(calendar) {
 		case 'iso-edtf' :
-			/* change division & subdiv headers */
+			// change division & subdiv headers
 			break;
 		case 'iso-yd' :
-			/* hide the division subgroup */
-			/* set the number of days for dropdown to ~365 */
+			// hide the division subgroup
+			// set the number of days for dropdown to ~365
 			break;
 		case 'iso-ywd' :
-			/* hide the division subgroup */
-			/* set the number of weeks for dropdown to ~52 */
-			/* set the number of days for dropdown to 7 */
-			/* set division header to "--- Week" */
+			// hide the division subgroup
+			// set the number of weeks for dropdown to ~52
+			// set the number of days for dropdown to 7
+			// set division header to "--- Week" 
 			break;
 		case 'julian' :
 			break;   
 		}
 	}
+	*/
 
 	/**
 	 * describe the function.
@@ -185,6 +187,7 @@ class gn_common {
 	 * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
 	 * @param {string} tabName - "start", "duration", or "end"
 	 */
+	/*
 	function commonDateLineShowHide(thisElement, tabName, line, action) {
 		var thisForm = thisElement.form;
 		var table, tableName, baseName, lineName, elems
@@ -203,4 +206,5 @@ class gn_common {
 			thisForm.elements.get(elems[i].id).hide();
 		}
 	}
+	*/
 }

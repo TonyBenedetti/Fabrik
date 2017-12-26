@@ -5,7 +5,6 @@
                        http://www.fourmilab.ch/
 
                 This program is in the public domain.
-xxx
 */
 
 //  Frequently-used constants

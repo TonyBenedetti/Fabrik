@@ -5,7 +5,6 @@
               http://www.fourmilab.ch/documents/calendar/
 
                 This program is in the public domain.
-xxx
 */
 
 /*  You may notice that a variety of array variables logically local
