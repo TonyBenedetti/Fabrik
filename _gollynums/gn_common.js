@@ -1,5 +1,5 @@
 /**
- * 
+ * Common functions
  */
 class gn_common {
 	/**
