@@ -3,7 +3,7 @@
  */
 class gn_common {
 	/**
-	 * xxx
+	 * 
 	 */
 	function listAllProperties(o) {
 		var objectToInspect;     

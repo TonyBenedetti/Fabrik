@@ -5,6 +5,7 @@
               http://www.fourmilab.ch/documents/calendar/
 
                 This program is in the public domain.
+xxx
 */
 
 /*  You may notice that a variety of array variables logically local
@@ -413,7 +414,7 @@ function equinoxe_a_paris(year)
     equAPP = equJD + equationOfTime(equJED);
 
     /*  Finally, we must correct for the constant difference between
-        the Greenwich meridian and that of Paris, 2°20'15" to the
+        the Greenwich meridian and that of Paris, 2ï¿½20'15" to the
         East.  */
 
     dtParis = (2 + (20 / 60.0) + (15 / (60 * 60.0))) / 360;
@@ -442,7 +443,7 @@ function paris_equinoxe_jd(year)
                                 given Julian day falls.  Returns an
                                 array of two elements:
 
-                                    [0]  Année de la Révolution
+                                    [0]  Annï¿½e de la Rï¿½volution
                                     [1]  Julian day number containing
                                          equinox for this year.
 */
@@ -568,7 +569,7 @@ function tehran_equinox(year)
 
     /*  Finally, we must correct for the constant difference between
         the Greenwich meridian andthe time zone standard for
-	Iran Standard time, 52°30' to the East.  */
+	Iran Standard time, 52ï¿½30' to the East.  */
 
     dtTehran = (52 + (30 / 60.0) + (0 / (60.0 * 60.0))) / 360;
     equTehran = equAPP + dtTehran;
