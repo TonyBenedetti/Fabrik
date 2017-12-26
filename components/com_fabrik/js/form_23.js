@@ -1,11 +1,10 @@
+let GN = new gn_common();
 function formDateType(thisElement) {
 	GN.commonDateType(thisElement)
 }
-
 function formDateDivisionType(thisElement) {
 	GN.commonDateDivisionType(thisElement)
 }
-
 function formDateDivisionPicklist(thisElement) {
 	GN.commonDateDivisionPicklist(thisElement)
 }
