@@ -1,3 +1,16 @@
+function formDateType(thisElement) {
+	commonDateType(thisElement)
+}
+
+function formDateDivisionType(thisElement) {
+	commonDateDivisionType(thisElement)
+}
+
+function formDateDivisionPicklist(thisElement) {
+	commonDateDivisionPicklist(thisElement)
+}
+
+/*
 function listAllProperties(o) {
 	var objectToInspect;     
 	var result = [];
@@ -8,7 +21,7 @@ function listAllProperties(o) {
 	
 	return result; 
 }
-
+*/
 
 /**
  * The form has just been loaded or the user has just chosen a division of a year:
@@ -18,7 +31,8 @@ function listAllProperties(o) {
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
- function DivisionType(thisElement) {
+/*
+function DivisionType(thisElement) {
    var thisForm, elementFullname, elementName;
    var tableName, tabName, basicName, nameRoot;
    var picklistLabel, picklistName;
@@ -26,13 +40,13 @@ function listAllProperties(o) {
    var saverName, saverValue, activeName, activeValue;
    
    thisForm        = thisElement.form;
-   elementFullname = String(thisElement.options.fullName);             /* gn_event___start_division_type */
-   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; /* start_division_type */
+   elementFullname = String(thisElement.options.fullName);
+   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
 
-   tableName       = elementFullname.match(/(\w+)___\w+/)[1];          /* gn_event */
-   tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];       /* start */
-   basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];       /* division_type */
-   basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];         /* division */
+   tableName       = elementFullname.match(/(\w+)___\w+/)[1];
+   tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
+   basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
+   basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
    nameRoot        = tableName + '___' + tabName;
 
    picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
@@ -50,7 +64,7 @@ function listAllProperties(o) {
    });
    return;
 }
-
+*/
 
 /**
  * The form has just been loaded or the user has just chosen 
@@ -60,6 +74,8 @@ function listAllProperties(o) {
  *
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
+
+/*
 function DivisionPicklist(thisElement) {
    var thisForm, elementFullname, elementName;
    var tableName, tabName, basicName, nameRoot;
@@ -68,17 +84,16 @@ function DivisionPicklist(thisElement) {
    var saverName, saverValue, activeName, activeValue;
 
    thisForm        = thisElement.form;
-   elementFullname = String(thisElement.options.fullName);             /* gn_event___start_division_type */
-   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; /* start_division_type */
+   elementFullname = String(thisElement.options.fullName);
+   elementName     = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
 
-   tableName       = elementFullname.match(/(\w+)___\w+/)[1];          /* gn_event */
-   tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];       /* start */
-   basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];       /* division_type */
-   basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];         /* division */
+   tableName       = elementFullname.match(/(\w+)___\w+/)[1];
+   tabName         = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
+   basicName       = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
+   basicName       = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
    nameRoot        = tableName + '___' + tabName;
    typeFullname    = nameRoot + '_' + basicName + '_type';
    typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase());
-/*   typeName  = typeLabel.toLowerCase(); */
 
    suffixes = ['picklist', 'accuracy', 'confidence'];
    suffixes.forEach(function(suffix) {
@@ -90,7 +105,7 @@ function DivisionPicklist(thisElement) {
    });
    return;
 }
-
+*/
 
 /**
  * Show/hide combinations of the Fabrik groups
@@ -104,6 +119,7 @@ function DivisionPicklist(thisElement) {
  * @TODO get list of groups 
  * @TODO new function to loop array of 3 "hide/show"s for choice switch below
  */
+/*
 function DateType(thisElement)
 {
    var thisForm        = thisElement.form;
@@ -159,3 +175,4 @@ function DateType(thisElement)
    }
    return;
 }
+*/
