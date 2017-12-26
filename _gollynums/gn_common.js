@@ -1,7 +1,9 @@
 /**
  * Common functions for GollyNums forms
  */
-class gn_common {
+/*
+class GN {
+*/
 	/**
 	 * 
 	 */
@@ -207,4 +209,6 @@ class gn_common {
 		}
 	}
 	*/
+/*
 }
+*/
