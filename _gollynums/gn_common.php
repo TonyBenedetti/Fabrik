@@ -63,7 +63,7 @@ class EDTF {
         $calType = $data[$tabName . '_calendar_type_raw'];
 
         switch ($calType) {
-            case 'iso-edt
+            case 'iso-edtf' :
                 $year = self::buildSegment($data, $tabName, 'year',   0);
                 $divName = 'division_' . strtolower($data[$tabName . '_division_type']);
                 $div  = self::buildSegment($data, $tabName, $divname, 2);
