@@ -60,9 +60,9 @@ class EDTF {
      */
     function buildEDTF($data, $tableName, $tabType) {
         $tabName = $tableName . $tabType;
-        $calType = $data[$tabName . '_calendar_type_raw'];
+        $calendarType = $data[$tabName . '_calendar_type_raw'];
 
-        switch ($calType) {
+        switch ($calendarType) {
             case 'iso-edtf' :
                 $year = self::buildSegment($data, $tabName, 'year',     0);
                 $div  = self::buildSegment($data, $tabName, 'division', 2);
