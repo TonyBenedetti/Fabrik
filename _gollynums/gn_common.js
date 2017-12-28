@@ -1,4 +1,14 @@
-/**
+function listAllProperties(o) {
+	 var ourObject, result;
+	 result = [];
+	 for(ourObject = o; ourObject !== null; ourObject = Object.getPrototypeOf(ourObject)) {
+		 result = result.concat(Object.getOwnPropertyNames(objectToInspect)) + "\n";
+	 }
+	 return result;
+}
+
+
+**
  * The form has just been loaded or the user has just chosen a division of a year:
  * -- division possibilities are: month, quarter, third, half & season
  * -- change the label on the "_value" element
@@ -209,12 +219,5 @@ function commonDateLineShowHide(thisElement, tabName, line, action) {
 */
 
 
-function listAllProperties(o) {
-	 var ourObject, result;
-	 result = [];
-	 for(ourObject = o; ourObject !== null; ourObject = Object.getPrototypeOf(ourObject)) {
-		 result = result.concat(Object.getOwnPropertyNames(objectToInspect));
-	 }
-	 return result;
-}
+
  
