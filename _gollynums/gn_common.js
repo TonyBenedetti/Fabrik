@@ -48,7 +48,7 @@ function commonDateDivisionType(thisElement) {
  * 
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function commonDateDivisionvalue(thisElement) {
+function commonDateDivisionValue(thisElement) {
 	var thisForm, elementFullname, elementName;
 	var tableName, tabName, nameRoot, basicName;
 	var typeFullname, typeName;
@@ -69,7 +69,7 @@ function commonDateDivisionvalue(thisElement) {
 	typeFullname = nameRoot + '_' + basicName + '_type';
 	typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase());
 	
-	suffixes = [ 'value', 'accuracy', 'confidence' ];
+	suffixes = ['value', 'accuracy', 'confidence'];
 	suffixes.forEach(function(suffix) {
 		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix;
 		activeName  = nameRoot + '_' + basicName + '_' + suffix;
