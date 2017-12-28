@@ -100,7 +100,7 @@ class EDTF {
     }
 
 
-   /**
+    /**
     * Prepare a segment of a date
     * -- year, division, week, day
     * -- "divisions" are: month, quarter, third, half, season
@@ -108,8 +108,9 @@ class EDTF {
     */
     function buildSegment($data, $tabName, $segType, $pad) {
         $segName  = $tabName . '_' . $segType;
-        $segValueName = ($segType == 'division') ? $segName . '_value_raw' : $segName;
-      
+        $segValueName = $segName . '_value';
+        $segValueName = ($segType == 'division') ? $segValueName . '_raw' : $segValueName;
+/* alert($segType . '|' . $segName . '|' . $segValueName); */
         /**
          * Prepare the "naked" segment value:
          * -- year - strip leading zeros from year
