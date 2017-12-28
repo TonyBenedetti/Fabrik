@@ -107,7 +107,7 @@ class EDTF {
     */
     function buildSegment($data, $tabName, $segType, $pad) {
         $segName  = $tabName . '_' . $segType;
-        $segValueName = ($segType == 'division') ? $segName . '_picklist_raw' : $segName;
+        $segValueName = ($segType == 'division') ? $segName . '_value_raw' : $segName;
       
         /**
          * Prepare the "naked" segment value:
@@ -124,7 +124,7 @@ class EDTF {
          * -- suffix with optional exponent (Ennn) and significant digits (Snnn)
          */
         if ($segType == 'year') {
-            $segEra  = $data[$tabName . '_era_raw'];
+            $segEra  = $data[$tabName . '_era_value_raw'];
             $segment = ($segEra == 'bce') ? '-' . $segment : $segment;
 
             $segExp  = $data[$segName . '_exponent'];
