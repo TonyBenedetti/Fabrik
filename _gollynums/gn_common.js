@@ -1,15 +1,15 @@
 /**
  * The form has just been loaded or the user has just chosen a division of a year:
  * -- division possibilities are: month, quarter, third, half & season
- * -- change the label on the "_picklist" element
- * -- update "_picklist" element with the value that may have been previously saved
+ * -- change the label on the "_value" element
+ * -- update "_value" element with the value that may have been previously saved
  * 
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
 function commonDateDivisionType(thisElement) {
 	var thisForm, elementFullname, elementName;
 	var tableName, tabName, nameRoot, basicName;
-	var picklistLabel, picklistName;
+	var valueLabel, valueName;
 	var suffixes, suffix;
 	var saverName, saverValue, activeName, activeValue;
 	
@@ -24,16 +24,16 @@ function commonDateDivisionType(thisElement) {
 	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
 	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
 	
-	picklistLabel = String(thisForm.elements.get(elementFullname).getValue());
-	picklistName = picklistLabel.toLowerCase();
+	valueLabel = String(thisForm.elements.get(elementFullname).getValue());
+	valueName = valueLabel.toLowerCase();
 	
-	suffixes = [ 'picklist', 'accuracy', 'confidence' ];
+	suffixes = [ 'value', 'accuracy', 'confidence' ];
 	suffixes.forEach(function(suffix) {
-		saverName = nameRoot + '_saver_' + picklistName + '_' + suffix;
+		saverName = nameRoot + '_saver_' + valueName + '_' + suffix;
 		activeName = nameRoot + '_' + basicName + '_' + suffix;
 		saverValue = thisForm.elements.get(saverName).getValue();
-		if (suffix == 'picklist') {
-			thisForm.elements.get(activeName).setLabel(picklistLabel);
+		if (suffix == 'value') {
+			thisForm.elements.get(activeName).setLabel(valueLabel);
 		}
 		thisForm.elements.get(activeName).update(saverValue);
 	});
@@ -48,7 +48,7 @@ function commonDateDivisionType(thisElement) {
  * 
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
  */
-function commonDateDivisionPicklist(thisElement) {
+function commonDateDivisionvalue(thisElement) {
 	var thisForm, elementFullname, elementName;
 	var tableName, tabName, nameRoot, basicName;
 	var typeFullname, typeName;
@@ -69,7 +69,7 @@ function commonDateDivisionPicklist(thisElement) {
 	typeFullname = nameRoot + '_' + basicName + '_type';
 	typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase());
 	
-	suffixes = [ 'picklist', 'accuracy', 'confidence' ];
+	suffixes = [ 'value', 'accuracy', 'confidence' ];
 	suffixes.forEach(function(suffix) {
 		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix;
 		activeName  = nameRoot + '_' + basicName + '_' + suffix;
