@@ -23,17 +23,17 @@ class EDTF {
     */
     function getEDTF($data, $table, $type) {
         $tableName = 'gn_' . $table . '___';
-        $midlineEllipsis = "\u{202220222022}";
+        $midlineEllipsis = "\u{2022}\u{2022}\{2022}";
         $typeName = $tableName . 'basics_date_type';
         $e = ($data[$typeName] == 'Single Date') ? 'start' : $type;
       
         $ss = $data[$tableName . 'start_status_raw'];
-        $ss = ($ss == 'unknown') ? '??' : $ss;
+        $ss = ($ss == 'unknown') ? '???' : $ss;
         $ss = ($ss == 'open'   ) ? $midlineEllipsis : $ss;
 
         $se = $data[$tableName . 'end_status_raw'];
-        $se = ($se == 'unknown') ? '??' : $se;
-        $se = ($se == 'open'   ) ? '..' : $se;
+        $se = ($se == 'unknown') ? '???' : $se;
+        $se = ($se == 'open'   ) ? $midlineEllipsis : $se;
     
         switch ($e) {
             case 'both':
