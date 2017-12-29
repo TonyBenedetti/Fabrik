@@ -26,7 +26,7 @@ function alertObjectProperties(thisObject) {
 }
 
 
-**
+/**
  * The form has just been loaded or the user has just chosen a division of a year:
  * -- division possibilities are: month, quarter, third, half & season
  * -- change the label on the "_value" element
