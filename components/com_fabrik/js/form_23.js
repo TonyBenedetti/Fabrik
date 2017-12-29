@@ -21,6 +21,6 @@ function formDateDivisionType(thisElement) {
  * @param thisElement
  * @returns
  */
-function formDateDivisionPicklist(thisElement) {
-	commonDateDivisionPicklist(thisElement)
+function formDateDivisionValue(thisElement) {
+	commonDateDivisionValue(thisElement)
 }

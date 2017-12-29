@@ -1,22 +1,3 @@
-/*
-function listAllProperties(o) {
-	 var ourObject, result;
-	 result = [];
-	 for(ourObject = o; ourObject !== null; ourObject = Object.getPrototypeOf(ourObject)) {
-		 result = result.concat(Object.getOwnPropertyNames(objectToInspect)) + "\n";
-	 }
-	 return result;
-}
-*/
-/*
-var p= new Product("Burger")
- 
-for (var prop in p){
-    console.log(prop+" : "+ p[prop])
-}
-*/
-
-
 function alertObjectProperties(thisObject) {
 	var propertyName, thisList;
 	for (propertyName in thisObject) {
