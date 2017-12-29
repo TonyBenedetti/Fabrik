@@ -23,7 +23,7 @@ class EDTF {
     */
     function getEDTF($data, $table, $type) {
         $tableName = 'gn_' . $table . '___';
-        $midlineEllipsis = "\u{2022}\u{2006}\u{2022}\u{0020}\u{2022}";
+        $midlineEllipsis = "\u{2022}\u{2006}\u{2022}\u{2006}\u{2022}";
         $typeName = $tableName . 'basics_date_type';
         $e = ($data[$typeName] == 'Single Date') ? 'start' : $type;
       
