@@ -1,3 +1,4 @@
+/*
 function listAllProperties(o) {
 	 var ourObject, result;
 	 result = [];
@@ -5,6 +6,23 @@ function listAllProperties(o) {
 		 result = result.concat(Object.getOwnPropertyNames(objectToInspect)) + "\n";
 	 }
 	 return result;
+}
+*/
+/*
+var p= new Product("Burger")
+ 
+for (var prop in p){
+    console.log(prop+" : "+ p[prop])
+}
+*/
+
+
+function alertElementProperties(o) {
+	var result;
+	for (var prop in o){
+		result = result + prop + " : " + o[prop] + "\n";
+	}
+	alert(result);
 }
 
 
@@ -22,7 +40,7 @@ function commonDateDivisionType(thisElement) {
 	var valueLabel, valueName;
 	var suffixes, suffix;
 	var saverName, saverValue, activeName, activeValue;
-alert(listAllProperties(thisElement));
+alertElementProperties(thisElement);
 	thisForm = thisElement.form;
 	elementFullname = String(thisElement.options.fullName);
 	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
