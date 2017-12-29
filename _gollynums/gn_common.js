@@ -17,12 +17,12 @@ for (var prop in p){
 */
 
 
-function alertElementProperties(o) {
-	var result;
-	for (var prop in o){
-		result = result + prop + " : " + o[prop] + "\n";
+function alertObjectProperties(thisObject) {
+	var propertyName, thisList;
+	for (propertyName in thisObject) {
+		thisList = thisList + "[" + propertyName + "] -- [" + thisObject[propertyName] + "]\n";
 	}
-	alert(result);
+	alert(thisList);
 }
 
 
@@ -40,7 +40,7 @@ function commonDateDivisionType(thisElement) {
 	var valueLabel, valueName;
 	var suffixes, suffix;
 	var saverName, saverValue, activeName, activeValue;
-alertElementProperties(thisElement);
+alertObjectProperties(thisElement);
 	thisForm = thisElement.form;
 	elementFullname = String(thisElement.options.fullName);
 	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
