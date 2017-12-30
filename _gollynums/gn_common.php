@@ -146,11 +146,13 @@ class EDTF {
          * EDTF profile calendar and the "division" is not a month.
          * 
          * @todo perhaps we should extend "day numbering" to divisions other than month ???
+		 * @todo watch out!  values can include X's -- testing for #s is problematic
          */
         
+		$segDivType = $data[$tabName . '_' . 'division_type_raw'];
         $segDivValue = $data[$tabName . '_' . 'division_value_raw'];
         $continue = true;
-        if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivValue == 'month')) {
+        if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
         
@@ -172,7 +174,7 @@ class EDTF {
 }
 
 /**
- * Determine if this is a leap year on the proleptic Gregorian ccalendar
+ * Determine if this is a leap year on the proleptic Gregorian calendar
  */
 function isLeapYear($year) {
     if ($year % 100 == 0) {
