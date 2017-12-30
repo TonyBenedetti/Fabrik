@@ -73,7 +73,7 @@ class EDTF {
                 $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear, 0);
                 $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
                 $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
-                $edtf = $year . '-' . $div . '-' . $day;
+                $edtf = $year . '-' . $div . (($day == '') ? '' : ('-' . $day));
                 break;
             case 'iso-yd':
                 $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear, 0);
@@ -150,7 +150,7 @@ class EDTF {
         $continue = true;
         if (($segType == 'day') && ($calType == 'iso-edtf')) {
             $segDivValue = $data[$tabName . '_' . 'division_value_name_raw'];
-            $calendarType = $data[$tabName . '_calendar_type_raw'];
+            $calType = $data[$tabName . '_calendar_type_raw'];
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
         
