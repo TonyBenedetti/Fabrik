@@ -19,21 +19,26 @@ class EDTF {
     * @param $data array of all data associated with this form
     * @param $table e.g., "event", "people", or "..."
     * @param $type "Single Date", "Start/End", "Start/Duration", "Duration/End", or "Duration"
-    * @TODO day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ?
+    * 
+    * @TODO day becomes monthDay and add weekDay & yearDay -- dayOfMonth etc. ???
+    * @TODO "Purify" the code to that it can be moved to class of its own by getting the 
+    *       year, division, week & day ready before calling the buildEDTF function
     */
     function getEDTF($data, $table, $type) {
         $tableName = 'gn_' . $table . '___';
-        $midlineEllipsis = "\u{2022}\u{2006}\u{2022}\u{2006}\u{2022}";
         $typeName = $tableName . 'basics_date_type';
         $e = ($data[$typeName] == 'Single Date') ? 'start' : $type;
-      
+        
+        $dateOpen    = "\u{2022}\u{2006}\u{2022}\u{2006}\u{2022}";
+        $dateUnknown = "???";
+        
         $ss = $data[$tableName . 'start_status_raw'];
-        $ss = ($ss == 'unknown') ? '???' : $ss;
-        $ss = ($ss == 'open'   ) ? $midlineEllipsis : $ss;
+        $ss = ($ss == 'unknown') ? $dateUnknown : $ss;
+        $ss = ($ss == 'open'   ) ? $dateOpen    : $ss;
 
         $se = $data[$tableName . 'end_status_raw'];
-        $se = ($se == 'unknown') ? '???' : $se;
-        $se = ($se == 'open'   ) ? $midlineEllipsis : $se;
+        $se = ($se == 'unknown') ? $dateUnknown : $se;
+        $se = ($se == 'open'   ) ? $dateOpen    : $se;
     
         switch ($e) {
             case 'both':
@@ -55,44 +60,40 @@ class EDTF {
 
 
     /**
-     * Prepare
+     * Prepare an EDTF date string
      *
      */
     function buildEDTF($data, $tableName, $tabType) {
         $tabName = $tableName . $tabType;
-        $calendarType = $data[$tabName . '_calendar_type_raw'];
+        $calType = $data[$tabName . '_calendar_type_raw'];
+        $leapYear = isLeapYear($data[$tabName . '_year_value_raw']);
 
-        switch ($calendarType) {
+        switch ($calType) {
             case 'iso-edtf' :
-                $year = self::buildSegment($data, $tabName, 'year',     0);
-                $div  = self::buildSegment($data, $tabName, 'division', 2);
-                $day  = self::buildSegment($data, $tabName, 'day',      2);
+                $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear; 0);
+                $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear; 2);
+                $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear; 2);
                 $edtf = $year . '-' . $div . '-' . $day;
                 break;
             case 'iso-yd':
-                $year = self::buildSegment($data, $tabName, 'year',0);
-                $day  = self::buildSegment($data, $tabName, 'day', 3);
+                $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear; 0);
+                $day  = self::buildSegment($data, $tabName, $calType, 'day',  $leapYear; 3);
                 $edtf = $year . '-' .  $day;
                 break;
             case 'iso-yw':
-                $year = self::buildSegment($data, $tabName, 'year', 0);
-                $week = self::buildSegment($data, $tabName, 'week', 2);
+                $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear; 0);
+                $week = self::buildSegment($data, $tabName, $calType, 'week', $leapYear; 2);
                 $edtf = $year . '-W' . $week;
                 break;
             case 'iso-ywd':
-                $year =       self::buildSegment($data, $tabName, 'year', 0);
-                $week = 'W' . self::buildSegment($data, $tabName, 'week', 2);
-                $day  =       self::buildSegment($data, $tabName, 'day',  1);
+                $year =       self::buildSegment($data, $tabName, $calType, 'year', $leapYear; 0);
+                $week = 'W' . self::buildSegment($data, $tabName, $calType, 'week', $leapYear; 2);
+                $day  =       self::buildSegment($data, $tabName, $calType, 'day',  $leapYear; 1);
                 $edtf = $year . '-' . $week . '-' . $day;
                 break;
             /*
             case 'julian':
-                $year = self::buildSegment($data, $tabName, 'year', 0);
-                $div  = self::buildSegment($data, $tabName, 'division');
-                $week = self::buildSegment($data, $tabName, 'week');
-                $day  = self::buildSegment($data, $tabName, 'day');
-                $edtf = 'julian date';
-                break;
+                // base on iso-ymd
             */
         }
 
@@ -106,11 +107,13 @@ class EDTF {
     * -- "divisions" are: month, quarter, third, half, season
     *
     */
-    function buildSegment($data, $tabName, $segType, $pad) {
+    function buildSegment($data, $tabName, $calType, $segType, $leapYear, $pad) {
         $segName  = $tabName . '_' . $segType;
         $segValueName = $segName . '_value';
         $segValueName = ($segType == 'division') ? $segValueName . '_raw' : $segValueName;
+        
 /* alert($segType . '|' . $segName . '|' . $segValueName); */
+        
         /**
          * Prepare the "naked" segment value:
          * -- year - strip leading zeros from year
@@ -124,6 +127,8 @@ class EDTF {
          * Conditionally adjust a year segment:
          * -- prefix with minus sign if Era is BC (BCE)
          * -- suffix with optional exponent (Ennn) and significant digits (Snnn)
+         * 
+         * @todo figure out implication of "significant digits"
          */
         if ($segType == 'year') {
             $segEra  = $data[$tabName . '_era_value_raw'];
@@ -135,17 +140,44 @@ class EDTF {
             $segSuff = ($segSigD == 0) ? $segSuff : $segSuff . 'S' . ltrim((string)$segSigD, '0');
             $segment = $segment . $segSuff;
         }
-
-        /** 
-         * Conditionally add flags for accuracy and/or confidence
+        
+        /**
+         * Check to see if we should ignore a "day" segment because we're handling an ISO 8601
+         * EDTF profile calendar and the "division" is not a month.
+         * 
+         * @todo perhaps we should extend "day numbering" to divisions other than month ???
          */
-        $segAcc  = $data[$segName . '_accuracy_raw'];
-        $segConf = $data[$segName . '_confidence_raw'];
-        $segFlag = ($segAcc  == 'approximate') ?            '~' : '';
-        $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '?' : $segFlag;
-        $segment = ($segFlag == '~?') ? '%' . $segment : $segFlag . $segment;
+        $continue = true;
+        if (($segType == 'day') && ($calType == 'iso-edtf')) {
+            $segDivValue = $data[$tabName . '_' . 'division_value_name_raw'];
+            $calendarType = $data[$tabName . '_calendar_type_raw'];
+            $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
+        }
+        
+        if ($continue == true) {
+            /** 
+             * Conditionally add flags for accuracy and/or confidence
+             */
+            $segAcc  = $data[$segName . '_accuracy_raw'];
+            $segConf = $data[$segName . '_confidence_raw'];
+            $segFlag = ($segAcc  == 'approximate') ?            '~' : '';
+            $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '?' : $segFlag;
+            $segment = ($segFlag == '~?') ? '%' . $segment : $segFlag . $segment;
+        } else {
+            $segment = '';
+        }
 
         return $segment;
     }
+}
+
+/**
+ * Determine if this is a leap year on the proleptic Gregorian ccalendar
+ */
+function isLeapYear($year) {
+    if ($year % 100 == 0) {
+        return ($year % 400 == 0);
+    }
+    return ($year % 4 == 0);
 }
 ?>
