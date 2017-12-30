@@ -21,7 +21,7 @@ function commonDateDivisionType(thisElement) {
 	var valueLabel, valueName;
 	var suffixes, suffix;
 	var saverName, saverValue, activeName, activeValue;
-alertObjectProperties(thisElement);
+/* alertObjectProperties(thisElement); */
 	thisForm = thisElement.form;
 	elementFullname = String(thisElement.options.fullName);
 	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];

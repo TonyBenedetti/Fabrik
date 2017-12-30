@@ -70,25 +70,25 @@ class EDTF {
 
         switch ($calType) {
             case 'iso-edtf' :
-                $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear; 0);
-                $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear; 2);
-                $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear; 2);
+                $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear, 0);
+                $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
+                $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
                 $edtf = $year . '-' . $div . '-' . $day;
                 break;
             case 'iso-yd':
-                $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear; 0);
-                $day  = self::buildSegment($data, $tabName, $calType, 'day',  $leapYear; 3);
+                $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear, 0);
+                $day  = self::buildSegment($data, $tabName, $calType, 'day',  $leapYear, 3);
                 $edtf = $year . '-' .  $day;
                 break;
             case 'iso-yw':
-                $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear; 0);
-                $week = self::buildSegment($data, $tabName, $calType, 'week', $leapYear; 2);
+                $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear, 0);
+                $week = self::buildSegment($data, $tabName, $calType, 'week', $leapYear, 2);
                 $edtf = $year . '-W' . $week;
                 break;
             case 'iso-ywd':
-                $year =       self::buildSegment($data, $tabName, $calType, 'year', $leapYear; 0);
-                $week = 'W' . self::buildSegment($data, $tabName, $calType, 'week', $leapYear; 2);
-                $day  =       self::buildSegment($data, $tabName, $calType, 'day',  $leapYear; 1);
+                $year =       self::buildSegment($data, $tabName, $calType, 'year', $leapYear, 0);
+                $week = 'W' . self::buildSegment($data, $tabName, $calType, 'week', $leapYear, 2);
+                $day  =       self::buildSegment($data, $tabName, $calType, 'day',  $leapYear, 1);
                 $edtf = $year . '-' . $week . '-' . $day;
                 break;
             /*
