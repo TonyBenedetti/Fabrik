@@ -142,15 +142,15 @@ class EDTF {
         }
         
         /**
-         * Check to see if we should ignore a "day" segment because we're handling an ISO 8601
+         * Check to see if we should ignore a "day" segment if we're handling an ISO 8601
          * EDTF profile calendar and the "division" is not a month.
          * 
          * @todo perhaps we should extend "day numbering" to divisions other than month ???
          */
+        
+        $segDivValue = $data[$tabName . '_' . 'division_value_raw'];
         $continue = true;
-        if (($segType == 'day') && ($calType == 'iso-edtf')) {
-            $segDivValue = $data[$tabName . '_' . 'division_value_name_raw'];
-            $calType = $data[$tabName . '_calendar_type_raw'];
+        if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivValue == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
         
