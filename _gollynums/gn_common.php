@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Use Javascript to display a message as an Alert
+ */
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
+
 /**
  *
  *
@@ -178,11 +187,3 @@ function isLeapYear($year) {
     return ($year % 4 == 0);
 }
 ?>
-
-
-/**
- * Use Javascript to display a message as an Alert
- */
-function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
-}
