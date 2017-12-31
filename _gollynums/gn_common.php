@@ -75,7 +75,7 @@ class EDTF {
                 $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
                 $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
                 /*$edtf = $year . '-' . $div . (($day == '') ? '' : ('-' . $day)); */
-				alert(typeOf($day) . '-' . $day . '-');
+				alert(gettype($day) . '-' . $day . '-');
 				$edtf = $year . '-' . $div . ((preg_match('/[\dx]+/', $day) === 0) ? '' : ('-' . $day));
                 break;
             case 'iso-yd':
