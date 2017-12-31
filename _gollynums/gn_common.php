@@ -66,7 +66,8 @@ class EDTF {
     function buildEDTF($data, $tableName, $tabType) {
         $tabName = $tableName . $tabType;
         $calType = $data[$tabName . '_calendar_type_raw'];
-        $leapYear = isLeapYear($data[$tabName . '_year_value_raw']);
+		$yearTest = $data[$tabName . '_year_value_raw']; // more checking needed
+        $leapYear = isLeapYear($yearTest);
 
         switch ($calType) {
             case 'iso-edtf' :
@@ -74,8 +75,8 @@ class EDTF {
                 $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
                 $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
                 /*$edtf = $year . '-' . $div . (($day == '') ? '' : ('-' . $day)); */
+				alert(typeOf($day) . '-' . $day . '-');
 				$edtf = $year . '-' . $div . ((preg_match('/[\dx]+/', $day) === 0) ? '' : ('-' . $day));
-				/*preg_match('/[\dx]+/', $day) === 0;         */
                 break;
             case 'iso-yd':
                 $year = self::buildSegment($data, $tabName, $calType, 'year', $leapYear, 0);
