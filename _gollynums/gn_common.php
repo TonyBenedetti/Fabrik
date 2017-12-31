@@ -1,12 +1,5 @@
 <?php
 /**
- * Use Javascript to display a message as an Alert
- */
-function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
-}
-
-/**
  *
  *
  */
@@ -74,8 +67,7 @@ class EDTF {
                 $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear, 0);
                 $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
                 $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
-                /*$edtf = $year . '-' . $div . (($day == '') ? '' : ('-' . $day)); */
-				alert(gettype($day) . '-' . $day . '-');
+alert(gettype($day) . '-' . $day . '-' .gettype((string)$day) . '-' .  (string)$day . '-');
 				$edtf = $year . '-' . $div . (preg_match('/[\dx]+/', (string)$day) ? '' : ('-' . $day));
                 break;
             case 'iso-yd':
@@ -186,3 +178,11 @@ function isLeapYear($year) {
     return ($year % 4 == 0);
 }
 ?>
+
+
+/**
+ * Use Javascript to display a message as an Alert
+ */
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
