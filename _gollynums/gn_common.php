@@ -115,8 +115,6 @@ class EDTF {
         $segValueName = $segName . '_value';
         $segValueName = ($segType == 'division') ? $segValueName . '_raw' : $segValueName;
         
-/* alert($segType . '|' . $segName . '|' . $segValueName); */
-        
         /**
          * Prepare the "naked" segment value:
          * -- year - strip leading zeros from year
@@ -124,14 +122,20 @@ class EDTF {
          * !!! dont pad/trim if not all numeric -- is_numeric
          * bed  ... keep going
          */
-        $segment = ltrim((string)$data[$segValueName], '0');
-        if (is_numeric($segment)) {
+        $segment = ltrim((string)$data[$segValueName], '0'); // get rid of all leading 0s
+        
+        if (is_numeric($segment)) { // any Xs or other non-digits
             $pattern = '%0' . (string)$pad . 'd'; // %02d or %03d
-            $segment = sprintf($pattern, $segment);
+            $segment = sprintf($pattern, (string)$segment);
         } elseif ($pad > 0) {
-            $segment = substr($segment, -2);
+            $segment = substr($segment, $pad);
         }
-
+        
+        alert($segType . '|' . $segment . '|' . gettype($segment));
+        
+        
+        
+        
         /***
          * Conditionally adjust a year segment:
          * -- prefix with minus sign if Era is BC (BCE)
@@ -164,7 +168,7 @@ class EDTF {
         if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
-        alert('-' . $continue . '-' . $segType . '-' . $segment . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');
+/* alert('-' . $continue . '-' . $segType . '-' . $segment . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');*/
 
         if ($continue == true) {
             /** 
