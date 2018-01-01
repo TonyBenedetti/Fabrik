@@ -131,10 +131,10 @@ class EDTF {
             alert('is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|');
             
         } elseif ($pad > 0) {
+            $segment = substr($segment, $pad);
 /* !!!!!!!!!!! */
             alert('not is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|');
             
-            $segment = substr($segment, $pad);
         }
         
         
@@ -171,7 +171,7 @@ class EDTF {
         if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
-/* alert('-' . $continue . '-' . $segType . '-' . $segment . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');*/
+alert('-' . $continue . '-' . $segType . '-' . $segment . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');
 
         if ($continue == true) {
             /** 
