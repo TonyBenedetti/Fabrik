@@ -128,12 +128,12 @@ class EDTF {
             $pattern = '%0' . (string)$pad . 'd'; // %02d or %03d
             $segment = sprintf($pattern, (string)$segment);
 /* !!!!!!!!!!! */
-            alert('is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|');
+            alert('is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|' . $pad . '|');
             
         } elseif ($pad > 0) {
             $segment = substr($segment, $pad);
 /* !!!!!!!!!!! */
-            alert('not is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|');
+            alert('not is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|' . $pad . '|');
             
         }
         
