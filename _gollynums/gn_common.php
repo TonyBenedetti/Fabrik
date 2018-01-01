@@ -76,7 +76,6 @@ class EDTF {
                 $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear, 0);
                 $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
                 $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
-/* alert(gettype($day) . '-' . $day . '-' .gettype("$day") . '-' .  "$day" . '-'); */
 				$edtf = $year . '-' . $div . (preg_match('/[\dx]+/', "$day") ? '' : ('-' . $day));
                 break;
             case 'iso-yd':
@@ -122,10 +121,15 @@ class EDTF {
          * Prepare the "naked" segment value:
          * -- year - strip leading zeros from year
          * -- everything else - add leading zeros according to $pad param
+         * !!! dont pad/trim if not all numeric -- is_numeric
+         * bed  ... keep going
          */
-        $segment = (string)$data[$segValueName];
-        $pattern = '%0' . (string)$pad . 'd';
-        $segment = sprintf($pattern, ltrim($segment, '0'));
+        $segment = ltrim((string)$data[$segValueName], '0');
+        if (is_numeric($segment)) {
+            $pattern = '%0' . (string)$pad . 'd'; // %02d or %03d
+            $segment = sprintf($pattern, $segment);
+        } elseif ($pad > 0) {
+            $segment = substr($segment, -2);
 
         /***
          * Conditionally adjust a year segment:
