@@ -159,7 +159,7 @@ alert(gettype($day) . '-' . $day . '-' .gettype("$day") . '-' .  "$day" . '-');
         if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
-        
+        alert('-' . $continue . '-' . $day . '-' . $calType . '-' . $segDivType . '-');
         if ($continue == true) {
             /** 
              * Conditionally add flags for accuracy and/or confidence
