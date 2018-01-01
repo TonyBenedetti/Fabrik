@@ -127,12 +127,15 @@ class EDTF {
         if (is_numeric($segment)) { // any Xs or other non-digits
             $pattern = '%0' . (string)$pad . 'd'; // %02d or %03d
             $segment = sprintf($pattern, (string)$segment);
+/* !!!!!!!!!!! */
+            alert('is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|');
+            
         } elseif ($pad > 0) {
+/* !!!!!!!!!!! */
+            alert('not is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|');
+            
             $segment = substr($segment, $pad);
         }
-        
-        alert($segType . '|' . $segment . '|' . gettype($segment));
-        
         
         
         
