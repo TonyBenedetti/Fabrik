@@ -130,6 +130,7 @@ class EDTF {
             $segment = sprintf($pattern, $segment);
         } elseif ($pad > 0) {
             $segment = substr($segment, -2);
+        }
 
         /***
          * Conditionally adjust a year segment:
