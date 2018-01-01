@@ -76,7 +76,7 @@ class EDTF {
                 $year = self::buildSegment($data, $tabName, $calType, 'year',     $leapYear, 0);
                 $div  = self::buildSegment($data, $tabName, $calType, 'division', $leapYear, 2);
                 $day  = self::buildSegment($data, $tabName, $calType, 'day',      $leapYear, 2);
-alert(gettype($day) . '-' . $day . '-' .gettype("$day") . '-' .  "$day" . '-');
+/* alert(gettype($day) . '-' . $day . '-' .gettype("$day") . '-' .  "$day" . '-'); */
 				$edtf = $year . '-' . $div . (preg_match('/[\dx]+/', "$day") ? '' : ('-' . $day));
                 break;
             case 'iso-yd':
@@ -159,7 +159,7 @@ alert(gettype($day) . '-' . $day . '-' .gettype("$day") . '-' .  "$day" . '-');
         if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
-        alert('-' . $continue . '-' . $day . '-' . $calType . '-' . $segDivType . '-');
+        alert('-' . $continue . '-' . $segType . '-' . $day . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');
         if ($continue == true) {
             /** 
              * Conditionally add flags for accuracy and/or confidence
