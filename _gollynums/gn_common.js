@@ -32,8 +32,8 @@ function commonDateDivisionType(thisElement) {
 	
 	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
 	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
-	
 	valueLabel = String(thisForm.elements.get(elementFullname).getValue());
+alert(elementFullname + '|' + valueLabel);
 	valueName = valueLabel.toLowerCase();
 	
 	suffixes = [ 'value', 'accuracy', 'confidence' ];
