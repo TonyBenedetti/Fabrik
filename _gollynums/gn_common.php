@@ -119,27 +119,16 @@ class EDTF {
          * Prepare the "naked" segment value:
          * -- year - strip leading zeros from year
          * -- everything else - add leading zeros according to $pad param
-         * !!! dont pad/trim if not all numeric -- is_numeric
-         * bed  ... keep going
          */
         $segment = ltrim((string)$data[$segValueName], '0'); // get rid of all leading 0s
-        
         if (is_numeric($segment)) { // any Xs or other non-digits
             $pattern = '%0' . (string)$pad . 'd'; // %02d or %03d
-            $segment = sprintf($pattern, (string)$segment);
-/* !!!!!!!!!!! */
-            alert('is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|' . $pad . '|');
-            
+            $segment = sprintf($pattern, (string)$segment);   
         } elseif ($pad > 0) {
-            $segment = substr($segment, $pad);
-/* !!!!!!!!!!! */
-            alert('not is_numeric - ' . $segType . '|' . $segment . '|' . gettype($segment) . '|' . $pad . '|');
-            
+            $segment = substr($segment, -$pad);
         }
         
-        
-        
-        /***
+        /**
          * Conditionally adjust a year segment:
          * -- prefix with minus sign if Era is BC (BCE)
          * -- suffix with optional exponent (Ennn) and significant digits (Snnn)
@@ -157,38 +146,19 @@ class EDTF {
             $segment = $segment . $segSuff;
         }
         
-        /**
-         * Check to see if we should ignore a "day" segment if we're handling an ISO 8601
-         * EDTF profile calendar and the "division" is not a month.
-         * 
-         * @todo perhaps we should extend "day numbering" to divisions other than month ???
-		 * @todo watch out!  values can include X's -- testing for #s is problematic
+        /** 
+         * Conditionally add flags for accuracy and/or confidence
          */
-        
-		$segDivType = $data[$tabName . '_' . 'division_type_raw'];
-        $segDivValue = $data[$tabName . '_' . 'division_value_raw'];
-        $continue = true;
-        if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
-            $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
-        }
-alert('-' . $continue . '-' . $segType . '-' . $segment . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');
-
-        if ($continue == true) {
-            /** 
-             * Conditionally add flags for accuracy and/or confidence
-             */
-            $segAcc  = $data[$segName . '_accuracy_raw'];
-            $segConf = $data[$segName . '_confidence_raw'];
-            $segFlag = ($segAcc  == 'approximate') ?            '~' : '';
-            $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '?' : $segFlag;
-            $segment = ($segFlag == '~?') ? '%' . $segment : $segFlag . $segment;
-        } else {
-            $segment = '';
-        }
+        $segAcc  = $data[$segName . '_accuracy_raw'];
+        $segConf = $data[$segName . '_confidence_raw'];
+        $segFlag = ($segAcc  == 'approximate') ?            '~' : '';
+        $segFlag = ($segConf == 'uncertain'  ) ? $segFlag . '?' : $segFlag;
+        $segment = ($segFlag == '~?') ? '%' . $segment : $segFlag . $segment;
 
         return $segment;
     }
 }
+
 
 /**
  * Determine if this is a leap year on the proleptic Gregorian calendar
