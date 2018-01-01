@@ -159,7 +159,8 @@ class EDTF {
         if (($segType == 'day') && ($calType == 'iso-edtf') && ($segDivType == 'month')) {
             $continue = (($segDivValue < 1) or ($segDivValue > 12)) ? false : true;
         }
-        alert('-' . $continue . '-' . $segType . '-' . $day . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');
+        alert('-' . $continue . '-' . $segType . '-' . $segment . '-' . $calType . '-' . $segDivType . '-' . $segDivValue . '-');
+
         if ($continue == true) {
             /** 
              * Conditionally add flags for accuracy and/or confidence
