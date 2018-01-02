@@ -86,7 +86,7 @@ function commonDateDivisionValue(thisElement) {
 		activeValue = thisForm.elements.get(activeName).getValue();
 		thisForm.elements.get(saverName).update(activeValue); // save the current value
  
-alert(saverName + '|' + saverValue + '|' + activeName + '|' + activeValue + '|');
+alert(saverName + '|' + activeName + '|' + activeValue + '|');
 	})
 }
 
