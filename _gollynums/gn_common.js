@@ -36,18 +36,22 @@ function commonDateDivisionType(thisElement) {
 	valueLabel = String(thisForm.elements.get(elementFullname).getValue()); //Month ???
 	valueName = valueLabel.toLowerCase(); //month
 	
-	suffixes = [ 'value', 'accuracy', 'confidence' ];
-	suffixes.forEach(function(suffix) {
-		saverName  = nameRoot + '_saver_' + valueName + '_' + suffix;
-		activeName = nameRoot + '_' + basicName + '_' + suffix;
+	suffixes = ['value', 'accuracy', 'confidence'];
+	suffixes.forEach(function(suffix) { 
+		saverName  = nameRoot + '_saver_' + valueName + '_' + suffix; //gn_event___start_saver_month_value/accuracy/confidence
+		activeName = nameRoot + '_' + basicName + '_' + suffix;       //gn_event___start_division_value/accuracy/confidence
 		saverValue = thisForm.elements.get(saverName).getValue();
+alert(suffix + '|' + activeName + '|' + valueLabel + '|');
 		if (suffix == 'value') {
 			thisForm.elements.get(activeName).setLabel(valueLabel);
 		}
 		thisForm.elements.get(activeName).update(saverValue);
 	});
+	
+/*alert('|' + saverName + '|' + saverValue + '|' + activeName + '|' + activeValue + '|');*/
 	return;
 }
+
 
 /**
  * The form has just been loaded or the user has just chosen a value
@@ -85,8 +89,6 @@ function commonDateDivisionValue(thisElement) {
 		activeName  = nameRoot + '_' + basicName + '_' + suffix;      //gn_event___start_division_value/accuracy/confidence
 		activeValue = thisForm.elements.get(activeName).getValue();
 		thisForm.elements.get(saverName).update(activeValue); // save the current value
- 
-alert(saverName + '|' + activeName + '|' + activeValue + '|');
 	})
 }
 
