@@ -84,7 +84,7 @@ function commonDateDivisionValue(thisElement) {
 		activeName  = nameRoot + '_' + basicName + '_' + suffix;      //gn_event___start_division_value/accuracy/confidence
 		saverValue  = thisForm.elements.get(saverName).getValue();
 		activeValue = thisForm.elements.get(activeName).getValue();
-		alert(saverName + '|' + activeName + '|');
+		alert(saverName + '|' + saverValue + '|' + activeName + '|' + activeValue + '|');
 	})
 }
 /**
