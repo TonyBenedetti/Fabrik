@@ -21,24 +21,24 @@ function commonDateDivisionType(thisElement) {
 	var valueLabel, valueName;
 	var suffixes, suffix;
 	var saverName, saverValue, activeName, activeValue;
-/* alertObjectProperties(thisElement); */
+	
 	thisForm = thisElement.form;
-	elementFullname = String(thisElement.options.fullName);
-	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+	elementFullname = String(thisElement.options.fullName);         //gn_event___start_division_type
+	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; //start_division_type
 	
-	tableName = elementFullname.match(/(\w+)___\w+/)[1];
-	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
-	nameRoot = tableName + '___' + tabName;
+	tableName = elementFullname.match(/(\w+)___\w+/)[1];            //gn_event
+	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //start
+	nameRoot = tableName + '___' + tabName;                         //gn_event___start
 	
-	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
-	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
-	valueLabel = String(thisForm.elements.get(elementFullname).getValue());
-/*alert(elementFullname + '|' + valueLabel);*/
-	valueName = valueLabel.toLowerCase();
+	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];         //division_type
+	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //division
+	
+	valueLabel = String(thisForm.elements.get(elementFullname).getValue()); //Month ???
+	valueName = valueLabel.toLowerCase(); //month
 	
 	suffixes = [ 'value', 'accuracy', 'confidence' ];
 	suffixes.forEach(function(suffix) {
-		saverName = nameRoot + '_saver_' + valueName + '_' + suffix;
+		saverName  = nameRoot + '_saver_' + valueName + '_' + suffix;
 		activeName = nameRoot + '_' + basicName + '_' + suffix;
 		saverValue = thisForm.elements.get(saverName).getValue();
 		if (suffix == 'value') {
@@ -62,7 +62,7 @@ function commonDateDivisionValue(thisElement) {
 	var tableName, tabName, nameRoot, basicName;
 	var typeFullname, typeName;
 	var suffixes, suffix;
-	var saverName, saverValue, activeName, activeValue;
+	var saverName, activeName, activeValue;
 	
 	thisForm = thisElement.form;
 	elementFullname = String(thisElement.options.fullName);         //gn_event___start_division_value
@@ -75,21 +75,22 @@ function commonDateDivisionValue(thisElement) {
 	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];         //division_value
 	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //division
 	
-	typeFullname = nameRoot + '_' + basicName + '_type';            //gn_event___start_division_value
-	typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase()); //Month ???
+	typeFullname = nameRoot + '_' + basicName + '_type'; //gn_event___start_division_type
+	typeName = String(thisForm.elements.get(typeFullname).getValue()); //Month ???
+	typeName = typeName.toLowerCase(); //month
 	
 	suffixes = ['value', 'accuracy', 'confidence'];
 	suffixes.forEach(function(suffix) {
 		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix; //gn_event___start_saver_month_value/accuracy/confidence
 		activeName  = nameRoot + '_' + basicName + '_' + suffix;      //gn_event___start_division_value/accuracy/confidence
-		saverValue  = thisForm.elements.get(saverName).getValue();
 		activeValue = thisForm.elements.get(activeName).getValue();
-		
-		alert(saverName + '|' + saverValue + '|' + activeName + '|' + activeValue + '|');
-		
 		thisForm.elements.get(saverName).update(activeValue); // save the current value
+ 
+		/* alert(saverName + '|' + saverValue + '|' + activeName + '|' + activeValue + '|'); */
 	})
 }
+
+
 /**
  * Show/hide combinations of the Fabrik groups (and their tabs) used to develop
  * a date or duration based on the chosen date type (single date, start/end,
