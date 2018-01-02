@@ -41,8 +41,8 @@ function commonDateDivisionType(thisElement) {
 		saverName  = nameRoot + '_saver_' + valueName + '_' + suffix; //gn_event___start_saver_month_value/accuracy/confidence
 		activeName = nameRoot + '_' + basicName + '_' + suffix;       //gn_event___start_division_value/accuracy/confidence
 		saverValue = thisForm.elements.get(saverName).getValue();
-alert(suffix + '|' + activeName + '|' + valueLabel + '|');
 		if (suffix == 'value') {
+alert(suffix + '|' + activeName + '|' + valueLabel + '|');
 			thisForm.elements.get(activeName).setLabel(valueLabel);
 		}
 		thisForm.elements.get(activeName).update(saverValue);
