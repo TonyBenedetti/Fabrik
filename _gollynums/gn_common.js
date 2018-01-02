@@ -23,32 +23,30 @@ function commonDateDivisionType(thisElement) {
 	var saverName, saverValue, activeName, activeValue;
 	
 	thisForm = thisElement.form;
-	elementFullname = String(thisElement.options.fullName);         //gn_event___start_division_type
-	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; //start_division_type
+	elementFullname = String(thisElement.options.fullName);
+	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
 	
-	tableName = elementFullname.match(/(\w+)___\w+/)[1];            //gn_event
-	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //start
-	nameRoot = tableName + '___' + tabName;                         //gn_event___start
+	tableName = elementFullname.match(/(\w+)___\w+/)[1];
+	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
+	nameRoot = tableName + '___' + tabName;
 	
-	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];         //division_type
-	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //division
+	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
+	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
 	
-	valueLabel = String(thisForm.elements.get(elementFullname).getValue()); //Month ???
+	valueLabel = String(thisForm.elements.get(elementFullname).getValue());
 	valueName = valueLabel.toLowerCase(); //month
 	
 	suffixes = ['value', 'accuracy', 'confidence'];
 	suffixes.forEach(function(suffix) { 
-		saverName  = nameRoot + '_saver_' + valueName + '_' + suffix; //gn_event___start_saver_month_value/accuracy/confidence
-		activeName = nameRoot + '_' + basicName + '_' + suffix;       //gn_event___start_division_value/accuracy/confidence
+		saverName  = nameRoot + '_saver_' + valueName + '_' + suffix;
+		activeName = nameRoot + '_' + basicName + '_' + suffix;
 		saverValue = thisForm.elements.get(saverName).getValue();
 		if (suffix == 'value') {
-alert(suffix + '|' + activeName + '|' + valueLabel + '|');
 			thisForm.elements.get(activeName).setLabel(valueLabel);
 		}
 		thisForm.elements.get(activeName).update(saverValue);
 	});
 	
-/*alert('|' + saverName + '|' + saverValue + '|' + activeName + '|' + activeValue + '|');*/
 	return;
 }
 
@@ -69,26 +67,26 @@ function commonDateDivisionValue(thisElement) {
 	var saverName, activeName, activeValue;
 	
 	thisForm = thisElement.form;
-	elementFullname = String(thisElement.options.fullName);         //gn_event___start_division_value
-	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; //start_division_value
+	elementFullname = String(thisElement.options.fullName);
+	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
 	
-	tableName = elementFullname.match(/(\w+)___\w+/)[1];            //gn_event
-	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //start
-	nameRoot = tableName + '___' + tabName;                         //gn_event___start
+	tableName = elementFullname.match(/(\w+)___\w+/)[1];
+	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
+	nameRoot = tableName + '___' + tabName;
 	
-	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];         //division_value
-	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //division
+	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
+	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
 	
-	typeFullname = nameRoot + '_' + basicName + '_type'; //gn_event___start_division_type
-	typeName = String(thisForm.elements.get(typeFullname).getValue()); //Month ???
+	typeFullname = nameRoot + '_' + basicName + '_type';
+	typeName = String(thisForm.elements.get(typeFullname).getValue());
 	typeName = typeName.toLowerCase(); //month
 	
 	suffixes = ['value', 'accuracy', 'confidence'];
 	suffixes.forEach(function(suffix) {
-		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix; //gn_event___start_saver_month_value/accuracy/confidence
-		activeName  = nameRoot + '_' + basicName + '_' + suffix;      //gn_event___start_division_value/accuracy/confidence
+		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix;
+		activeName  = nameRoot + '_' + basicName + '_' + suffix;
 		activeValue = thisForm.elements.get(activeName).getValue();
-		thisForm.elements.get(saverName).update(activeValue); // save the current value
+		thisForm.elements.get(saverName).update(activeValue);
 	})
 }
 
