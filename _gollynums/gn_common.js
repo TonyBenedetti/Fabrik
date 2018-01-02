@@ -85,6 +85,8 @@ function commonDateDivisionValue(thisElement) {
 		saverValue  = thisForm.elements.get(saverName).getValue();
 		activeValue = thisForm.elements.get(activeName).getValue();
 		alert(saverName + '|' + activeName + '|');
+	}
+}
 /**
  * Show/hide combinations of the Fabrik groups (and their tabs) used to develop
  * a date or duration based on the chosen date type (single date, start/end,
