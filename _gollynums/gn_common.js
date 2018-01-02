@@ -52,7 +52,7 @@ function commonDateDivisionType(thisElement) {
 /**
  * The form has just been loaded or the user has just chosen a value
  * for this division of a year:
- * -- division possibilities are: month, quarter, third, half & season
+ * -- division possibilities are: week, month*, quarter, third, half & season -- (* = default)
  * -- stow away that value in the corresponding "_saver_" element
  * 
  * @param {Object} thisElement - Fabrik element that called us via onLoad or onClick.
@@ -65,31 +65,26 @@ function commonDateDivisionValue(thisElement) {
 	var saverName, saverValue, activeName, activeValue;
 	
 	thisForm = thisElement.form;
-	elementFullname = String(thisElement.options.fullName);
-	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1];
+	elementFullname = String(thisElement.options.fullName);         //gn_event___start_division_value
+	elementName = elementFullname.match(/[a-zA-Z0-9]+___(\w+)/)[1]; //start_division_value
 	
-	tableName = elementFullname.match(/(\w+)___\w+/)[1];
-	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];
-	nameRoot = tableName + '___' + tabName;
+	tableName = elementFullname.match(/(\w+)___\w+/)[1];            //gn_event
+	tabName = elementName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //start
+	nameRoot = tableName + '___' + tabName;                         //gn_event___start
 	
-	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];
-	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];
+	basicName = elementName.match(/[a-zA-Z0-9]+_(\w+)/)[1];         //division_value
+	basicName = basicName.match(/([a-zA-Z0-9]+)_\w+/)[1];           //division
 	
-	typeFullname = nameRoot + '_' + basicName + '_type';
-	typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase());
+	typeFullname = nameRoot + '_' + basicName + '_type';            //gn_event___start_division_value
+	typeName = String(thisForm.elements.get(typeFullname).getValue().toLowerCase()); //Month ???
 	
 	suffixes = ['value', 'accuracy', 'confidence'];
 	suffixes.forEach(function(suffix) {
-		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix;
-		activeName  = nameRoot + '_' + basicName + '_' + suffix;
+		saverName   = nameRoot + '_saver_' + typeName + '_' + suffix; //gn_event___start_saver_month_value/accuracy/confidence
+		activeName  = nameRoot + '_' + basicName + '_' + suffix;      //gn_event___start_division_value/accuracy/confidence
 		saverValue  = thisForm.elements.get(saverName).getValue();
 		activeValue = thisForm.elements.get(activeName).getValue();
-		thisForm.elements.get(saverName).update(activeValue);
-	});
-	
-	return;
-}
-
+		alert(saverName + '|' + activeName + '|');
 /**
  * Show/hide combinations of the Fabrik groups (and their tabs) used to develop
  * a date or duration based on the chosen date type (single date, start/end,
@@ -114,6 +109,9 @@ function commonDateType(thisElement) {
 	var tabGroupA = '#group118_tab';
 	var tabGroupB = '#group122_tab';
 	var tabGroupC = '#group121_tab';
+	var tabGroupX = '#group140_tab';
+	
+	jQuery(tabGroupX).hide();
 	
 	switch (chosen) {
 	case choice1:
