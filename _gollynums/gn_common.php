@@ -108,6 +108,8 @@ class EDTF {
                 break;
         }
         
+        $edtf =  rtrim($edtf, '-');
+        
         return $edtf;
     }
     
