@@ -222,7 +222,3 @@ function commonDateLineShowHide(thisElement, tabName, line, action) {
 	}
 }
 */
-
-
-
- 
