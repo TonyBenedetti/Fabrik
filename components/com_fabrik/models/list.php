@@ -10280,6 +10280,8 @@ class FabrikFEModelList extends JModelForm
 
 		if (!empty($url))
 		{
+			// call replaceWithGlobals to handle any {formview} replacement before query string handling
+			$url = $w->replaceWithGlobals($url);
 			$addurl_parts = explode('?', $url);
 
 			if (count($addurl_parts) > 1)
@@ -12124,7 +12126,7 @@ class FabrikFEModelList extends JModelForm
 
 			$row->id = 'list_tabs_' . $this->getId() . '_' . $i;
 			$row->js = false;
-			$row->class = ($thisUri == $row->href) ? 'active' : '';
+			$row->class = ($thisUri == $row->href || (strpos($thisUri, $tabsField) === false && $i == 0)) ? 'active' : '';
 			$this->tabs[] = $row;
 		}
 
