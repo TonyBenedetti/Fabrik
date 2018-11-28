@@ -1252,7 +1252,8 @@ class FabrikFEModelList extends JModelForm
 							 * Rendering of accented characters in DomPDF
 							 * Don't do this on feeds, as it produces non XMLS entities like &eacute that blow XML parsers up
 							 */
-							if ($this->app->input->get('format', '') !== 'fabrikfeed')
+							if ($this->app->input->get('format', '') !== 'fabrikfeed'
+								&& $this->app->input->get('format', '') !== 'feed')
 							{
 								$data[$i]->$col = htmlspecialchars_decode(htmlentities($data[$i]->$col, ENT_NOQUOTES, 'UTF-8'), ENT_NOQUOTES);
 							}
@@ -9205,7 +9206,16 @@ class FabrikFEModelList extends JModelForm
 			$base = JURI::getInstance()->toString(array('scheme', 'user', 'pass', 'host', 'port', 'path'));
 
 			// $$$ rob test fabrik's own feed renderer
-			$link = $base . '?option=com_' . $package . '&view=list&listid=' . $this->getId() . "&format=fabrikfeed";
+			$link = $base . '?option=com_' . $package . '&view=list&listid=' . $this->getId();
+			$version = new JVersion;
+
+			if (version_compare($version->RELEASE, '3.8', '>=')) {
+				$link .= "&format=feed";
+			}
+			else
+			{
+				$link .= "&format=fabrikfeed";
+			}
 
 			if (!$this->app->isAdmin())
 			{
@@ -9354,7 +9364,8 @@ class FabrikFEModelList extends JModelForm
 			$link = '';
 
 			// $$$ hugh - if we don't do this on feeds, links with sub-folders in root get screwed up because no BASE_HREF is set
-			if ($this->app->input->get('format', '') == 'fabrikfeed')
+			if ($this->app->input->get('format', '') == 'fabrikfeed'
+				|| $this->app->input->get('format', '') == 'feed')
 			{
 				$link .= COM_FABRIK_LIVESITE;
 			}
@@ -11280,7 +11291,15 @@ class FabrikFEModelList extends JModelForm
 					/* $$$ rob 10/03/2012 changed menu param to listlayout to avoid the list menu item
 					 * options also being used for the form/details view template
 					*/
-					$this->tmpl = FabrikWorker::getMenuOrRequestVar('listlayout', $this->tmpl, $this->isMambot);
+					$this->tmpl = FabrikWorker::getMenuOrRequestVar(
+						'listlayout',
+						$this->tmpl,
+						$this->isMambot,
+						'menu',
+						array(
+							'listid' => $this->getId()
+						)
+					);
 				}
 			}
 
@@ -11289,14 +11308,12 @@ class FabrikFEModelList extends JModelForm
 				$this->tmpl = FabrikWorker::j3() ? 'bootstrap' : 'default';
 			}
 
+			/*
 			if ($this->app->scope !== 'mod_fabrik_list')
 			{
-				/* $$$ rob 10/03/2012 changed menu param to listlayout to avoid the list menu item
-				 * options also being used for the form/details view template
-				*/
-				// $this->tmpl = FabrikWorker::getMenuOrRequestVar('fabriklayout', $this->tmpl, $this->isMambot);
 				$this->tmpl = FabrikWorker::getMenuOrRequestVar('listlayout', $this->tmpl, $this->isMambot);
 			}
+			*/
 
 			if ($document->getType() === 'pdf')
 			{
