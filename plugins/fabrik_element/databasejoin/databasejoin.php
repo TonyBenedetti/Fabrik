@@ -111,6 +111,11 @@ class PlgFabrik_ElementDatabasejoin extends PlgFabrik_ElementList
 	protected $orderBy = '';
 
 	/**
+	 * @var bool
+	 */
+	public $_rawFilter = false;
+
+	/**
 	 * Create the SQL select 'name AS alias' segment for list/form queries
 	 *
 	 * @param   array &$aFields   array of element names
@@ -1551,7 +1556,7 @@ class PlgFabrik_ElementDatabasejoin extends PlgFabrik_ElementList
 			return false;
 		}
 
-		$db    = $this->getDb();
+		$db = FabrikWorker::getDbo(true);
 		$query = $db->getQuery(true);
 		$query->select('id')->from('#__{package}_lists')->where('form_id =' . $popupFormId);
 		$db->setQuery($query);
