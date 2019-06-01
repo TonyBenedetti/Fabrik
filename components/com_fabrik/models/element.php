@@ -3911,7 +3911,7 @@ class PlgFabrik_Element extends FabrikPlugin
 		if ($pop !== '')
 		{
 			$w    = new FabrikWorker;
-			$data = empty($data) ? $this->getFormModel()->getData() : $data;
+			//$data = empty($data) ? $this->getFormModel()->getData() : $data;
 			$pop  = $w->parseMessageForPlaceHolder($pop, $data, false);
 
 			$key = md5($pop) . '-' . md5(serialize($data));
@@ -4349,7 +4349,7 @@ class PlgFabrik_Element extends FabrikPlugin
 		$qsFilter = $this->app->input->get($name, array(), 'array');
 		$qsValues = FArrayHelper::getValue($qsFilter, 'value', array());
 
-		if (count($qsValues) > 1)
+		if (is_array($qsValues) && count($qsValues) > 1)
 		{
 			$type = $type === 'hidden' ? 'range-hidden' : 'range';
 		}
@@ -6188,10 +6188,27 @@ class PlgFabrik_Element extends FabrikPlugin
 
         $params    = $this->getParams();
 		$listModel = $this->getListModel();
-		$data      = FabrikWorker::JSONtoData($data, true);
+
+		if (!ArrayHelper::getValue($opts, 'json', false))
+		{
+			$data = FabrikWorker::JSONtoData($data, true);
+		}
+		else
+		{
+			$data = (array) $data;
+		}
 
 		foreach ($data as $i => &$d)
 		{
+			/**
+			 * At this point we should have scalar data, but if something (like a textarea) had JSON as its value,
+			 * it will have gotten decoded by the JSONtoData, so if not scalar, re-encode it.
+			 */
+			if (!is_scalar($d))
+			{
+				$d = json_encode($d);
+			}
+
 			if ($params->get('icon_folder') == '1' && ArrayHelper::getValue($opts, 'icon', 1))
 			{
 				// $$$ rob was returning here but that stopped us being able to use links and icons together
