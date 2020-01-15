@@ -10,9 +10,9 @@ class JConfig {
 	public $debug_lang = '0';
 	public $dbtype = 'mysqli';
 	public $host = 'localhost';
-	public $user = 'greeng42_ajb';
+	public $user = 'benede8_ajb';
 	public $password = '6150Wilston';
-	public $db = 'greeng42_gollynums';
+	public $db = 'benede8_gollynums';
 	public $dbprefix = 'jos_';
 	public $live_site = '';
 	public $secret = 'rp71VkrAxbCKBZNDCSsQIu6fKuyIdCkv';
