@@ -49,8 +49,8 @@ class JConfig {
 	public $sef_suffix = '0';
 	public $unicodeslugs = '0';
 	public $feed_limit = '10';
-	public $log_path = '/home/greeng42/gollynums.com/administrator/logs';
-	public $tmp_path = '/home/greeng42/gollynums.com/tmp';
+	public $log_path = '/home/benede8/gollynums.com/administrator/logs';
+	public $tmp_path = '/home/benede8/gollynums.com/tmp';
 	public $lifetime = '360';
 	public $session_handler = 'database';
 	public $MetaRights = '';
