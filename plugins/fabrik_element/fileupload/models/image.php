@@ -4,7 +4,7 @@
  *
  * @package     Joomla.Plugin
  * @subpackage  Fabrik.element.fileupload
- * @copyright   Copyright (C) 2005-2016  Media A-Team, Inc. - All rights reserved.
+ * @copyright   Copyright (C) 2005-2020  Media A-Team, Inc. - All rights reserved.
  * @license     GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
 
@@ -192,6 +192,11 @@ class ImageRenderModel
 	{
 		if ($this->inTableView)
 		{
+			if ($params->get('fu_show_image_in_table') === '2')
+			{
+				return true;
+			}
+
 			return ($params->get('make_thumbnail') || $params->get('fileupload_crop')) ? false : true;
 		}
 

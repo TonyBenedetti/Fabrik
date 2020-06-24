@@ -4,7 +4,7 @@
  *
  * @package     Joomla.Plugin
  * @subpackage  Fabrik.element.googlemap
- * @copyright   Copyright (C) 2005-2016  Media A-Team, Inc. - All rights reserved.
+ * @copyright   Copyright (C) 2005-2020  Media A-Team, Inc. - All rights reserved.
  * @license     GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
 
@@ -311,6 +311,7 @@ class PlgFabrik_ElementGooglemap extends PlgFabrik_Element
 		$opts->control = $params->get('fb_gm_mapcontrol');
 		$opts->scalecontrol = (bool) $params->get('fb_gm_scalecontrol');
 		$opts->maptypecontrol = (bool) $params->get('fb_gm_maptypecontrol');
+		$opts->maptypeids = $params->get('fb_gm_maptypecontroloptions');
 		$opts->overviewcontrol = (bool) $params->get('fb_gm_overviewcontrol');
 		$opts->traffic = (bool) $params->get('fb_gm_trafficlayer', '0');
 		$opts->drag = (bool) $formModel->isEditable() && (bool) $params->get('fb_gm_draggable', '1');
@@ -413,6 +414,7 @@ class PlgFabrik_ElementGooglemap extends PlgFabrik_Element
 		$config = JComponentHelper::getParams('com_fabrik');
 		$apiKey = trim($config->get('google_api_key', ''));
 		$opts->key = empty($apiKey) ? false : $apiKey;
+		$opts->language             = trim(strtolower($config->get('google_api_language', '')));
 
 		return array('FbGoogleMap', $id, $opts);
 	}

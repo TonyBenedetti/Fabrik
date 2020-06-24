@@ -4,7 +4,7 @@
  *
  * @package     Joomla
  * @subpackage  Fabrik.helpers
- * @copyright   Copyright (C) 2005-2016  Media A-Team, Inc. - All rights reserved.
+ * @copyright   Copyright (C) 2005-2020  Media A-Team, Inc. - All rights reserved.
  * @license     GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
 
@@ -1850,6 +1850,10 @@ EOD;
 		self::script($folder . 'slick' . $ext);
 		Html::stylesheet(COM_FABRIK_LIVESITE . 'media/com_fabrik/js/lib/slick/slick.css');
 		Html::stylesheet(COM_FABRIK_LIVESITE . 'media/com_fabrik/js/lib/slick/slick-theme.css');
+
+		$folder = 'media/com_fabrik/js/lib/elevatezoom-plus/';
+		$ext = self::isDebug() ? '.js' : '.js';
+		self::script($folder . 'jquery.ez-plus' . $ext);
 	}
 
 	/**
@@ -2274,6 +2278,7 @@ EOT;
 					self::$helperpaths[$type][] = COM_FABRIK_BASE . 'templates/' . $template . '/html/com_fabrik/' . $view . '/%s/images/';
 					self::$helperpaths[$type][] = COM_FABRIK_BASE . 'templates/' . $template . '/html/com_fabrik/' . $view . '/images/';
 					self::$helperpaths[$type][] = COM_FABRIK_BASE . 'templates/' . $template . '/html/com_fabrik/images/';
+					self::$helperpaths[$type][] = COM_FABRIK_BASE . 'templates/' . $template . '/custom/images/';
 					self::$helperpaths[$type][] = COM_FABRIK_FRONTEND . '/views/' . $view . '/tmpl/%s/images/';
 					self::$helperpaths[$type][] = COM_FABRIK_BASE . 'media/com_fabrik/images/';
 					self::$helperpaths[$type][] = COM_FABRIK_BASE . 'images/';
@@ -2880,6 +2885,23 @@ EOT;
 					$attributes[] = 'data-rokbox-album="' . addslashes($group) . '"';
 				}
 				break;
+            case 3:
+                $rel = 'data-rel="lightcase';
+
+                if (!empty($group))
+	            {
+		            $rel .= ':' . addslashes($group);
+	            }
+
+	            $rel .= '"';
+                $attributes[] = $rel;
+
+	            if (!empty($title))
+	            {
+		            $attributes[] = 'title="' . addslashes($title) . '"';
+	            }
+
+                break;
 		}
 
 		return implode(' ', $attributes);

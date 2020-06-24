@@ -4,7 +4,7 @@
  *
  * @package     Joomla.Plugin
  * @subpackage  Fabrik.element.fileupload
- * @copyright   Copyright (C) 2005-2016  Media A-Team, Inc. - All rights reserved.
+ * @copyright   Copyright (C) 2005-2020  Media A-Team, Inc. - All rights reserved.
  * @license     GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
 
@@ -474,6 +474,7 @@ class PlgFabrik_ElementFileupload extends PlgFabrik_Element
         $opts->iconDelete       = Html::icon("icon-delete",  '', '', true);
         $opts->spanNames        = array();
         $opts->isCarousel       = $params->get('fu_show_image') === '3' && !$this->isEditable();
+        $opts->isZoom           = $params->get('fu_show_image') === '3' && !$this->isEditable();;
         $opts->htmlId           = $id;
 
         for($i = 1; $i <= 12; $i++)
