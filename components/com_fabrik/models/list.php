@@ -3612,8 +3612,8 @@ class FabrikFEModelList extends JModelForm
 			array_unshift($prefilters, 'WHERE');
 		}
 
-		$sql = implode($sql, ' ');
-		$prefilters = implode($prefilters, ' ');
+		$sql = implode(' ', $sql);
+		$prefilters = implode(' ', $prefilters);
 
 		return array($prefilters, $sql);
 	}

@@ -937,7 +937,8 @@ class PlgFabrik_ElementFileupload extends PlgFabrik_Element
 					{
 						$title = $thisRow->$title_name;
 						$title = FabrikWorker::JSONtoData($title, true);
-						$title = $title[$i];
+						//$title = $title[$i];
+						$title = array_key_exists($i, $title) ? $title[$i] : '';
 					}
 				}
 
@@ -1002,7 +1003,7 @@ class PlgFabrik_ElementFileupload extends PlgFabrik_Element
 
 		if ($params->get('fu_download_append', '0') === '1')
 		{
-			return $render->output . '<div>' . $downloadHTML . '</div>';;
+			return $render->output . '<div  class="fabrik-fu-download-append">' . $downloadHTML . '</div>';;
 		}
 		else
 		{
@@ -3445,7 +3446,7 @@ class PlgFabrik_ElementFileupload extends PlgFabrik_Element
 			exit;
 		}
 
-		if (empty($row))
+		if (empty((array)$row))
 		{
 			$errMsg = FText::_('PLG_ELEMENT_FILEUPLOAD_DOWNLOAD_NO_SUCH_FILE');
 			$errMsg .= Html::isDebug() ? " (no such row)" : '';
