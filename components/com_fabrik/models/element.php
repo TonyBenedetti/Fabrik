@@ -994,7 +994,7 @@ class PlgFabrik_Element extends FabrikPlugin
 		$prop    = $view == 'form' ? 'view_access' : 'list_view_access';
 		$params  = $this->getParams();
 
-		if (!is_object($this->access) || !array_key_exists($key, $this->access))
+		if (!is_object($this->access) || !isset($this->access->{$key}))
 		{
 			$groups             = $this->user->getAuthorisedViewLevels();
 			$this->access->$key = in_array($params->get($prop, $default), $groups);
@@ -1069,7 +1069,7 @@ class PlgFabrik_Element extends FabrikPlugin
 			$this->access = new stdClass;
 		}
 
-		if (!is_object($this->access) || !array_key_exists('use', $this->access))
+		if (!is_object($this->access) || !isset($this->access->use))
 		{
 			/**
 			 * $$$ hugh - testing new "Option 5" for group show, "Always show read only"
@@ -1149,7 +1149,7 @@ class PlgFabrik_Element extends FabrikPlugin
 	 */
 	public function canUseFilter()
 	{
-		if (!is_object($this->access) || !array_key_exists('filter', $this->access))
+		if (!is_object($this->access) || !isset($this->access->filter))
 		{
 			$groups = $this->user->getAuthorisedViewLevels();
 
@@ -8150,6 +8150,11 @@ class PlgFabrik_Element extends FabrikPlugin
 				{
 					$origData = FArrayHelper::getValue($d, $elKey, array());
 
+					if (!array_key_exists($elKey . '_raw', $d))
+					{
+						$d[$elKey . '_raw'] = $origData;
+					}
+
 					foreach (array_keys($v) as $x)
 					{
 						$origVal = FArrayHelper::getValue($origData, $x);
@@ -8158,7 +8163,14 @@ class PlgFabrik_Element extends FabrikPlugin
 				}
 				else
 				{
-					$d[$elKey] = $elementModel->getLabelForValue($v, FArrayHelper::getValue($d, $elKey), true);
+					$origData = FArrayHelper::getValue($d, $elKey);
+
+					if (!array_key_exists($elKey . '_raw', $d))
+					{
+						$d[$elKey . '_raw'] = $origData;
+					}
+
+					$d[$elKey] = $elementModel->getLabelForValue($v, $origData, true);
 				}
 			}
 		}
